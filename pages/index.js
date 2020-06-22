@@ -49,10 +49,6 @@ export default function Home() {
           color: #333;
         }
 
-        footer img {
-          margin-left: 0.5rem;
-        }
-
         footer a {
           display: flex;
           justify-content: center;

@@ -147,6 +147,10 @@ export default function Home() {
             flex-direction: column;
           }
         }
+
+        ::selection {
+          background: #00FFB0;
+        }
       `}</style>
 
       <style jsx global>{`

@@ -17,7 +17,7 @@ export default function Home() {
       </main>
 
       <footer>
-        <a href="https://oliverproud.com" target="_blank">Made by Oliver Proud</a>
+        <a href="https://oliverproud.com" target="_blank">Built by Oliver Proud.</a>
       </footer>
 
       <style jsx>{`

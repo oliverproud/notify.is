@@ -5,7 +5,6 @@ export default function Home() {
     <div className="container">
       <Head>
         <title>Notify.is</title>
-
         <meta name="author" content="Oliver Proud" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

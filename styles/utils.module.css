@@ -1,0 +1,16 @@
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  color: #333;
+  text-align: center;
+}
+
+.mainHeader {
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

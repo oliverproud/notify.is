@@ -39,9 +39,6 @@ export default function Home() {
 
     <div className="container">
       <div className="card mb-4 shadow-sm text-center">
-        <div className="card-header">
-          <h4 className="my-0 font-weight-normal">Sign up for free</h4>
-        </div>
         <div className="card-body">
           <h1 className="card-title card-title">
             <small className="text-muted">You give us</small>

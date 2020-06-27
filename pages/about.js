@@ -27,7 +27,7 @@ export default function About() {
           <li>Name</li>
           <li>Email address</li>
         </ul>
-        <p className="p-about">No accounts, no passwords. Just an email, from Notify. </p>
+        <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
         <Link href="#"><a className="btn nav-btn">Get notified</a></Link>
 
 

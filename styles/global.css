@@ -1,12 +1,9 @@
 html {
   font-size: 14px;
-  position: relative;
-  min-height: 100%;
 }
 
 body {
   color: #333;
-  margin-bottom: 60px; /* Margin bottom by footer height */
 }
 
 @media (min-width: 768px) {
@@ -36,25 +33,23 @@ body {
 }
 
 .footer {
-  display: flex; /* Vertically align text */
-  align-items: center; /* Vertically align text */
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 60px; /* Fixed height of the footer */
+  height: 100px;
+  margin-top: 40px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
 }
-
-.footer-menu {
+.footer-items {
   font-size: 12px;
-
 }
-ul.footer-menu {
+ul.footer-items {
   margin: 0;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-.footer-menu li {
+.footer-items li {
   display: inline;
   margin-right: 20px;
 }

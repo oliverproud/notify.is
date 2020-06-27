@@ -11,7 +11,7 @@ export default function Nav() {
 
       <nav className="my-3 my-md-0 mr-md-3">
         <Link href="/about"><a className="p-2">About</a></Link>
-        <Link href="#"><a className="p-2">Contact us</a></Link>
+        <Link href="/contact"><a className="p-2">Contact us</a></Link>
       </nav>
       <Link href="#"><a className="btn nav-btn">Get notified</a></Link>
     </div>

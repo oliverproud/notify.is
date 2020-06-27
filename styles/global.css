@@ -3,12 +3,12 @@ html {
 }
 
 body {
-  color: #333
+  color: #333;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -32,18 +32,32 @@ body {
   min-width: 220px;
 }
 
-.footer-menu ul {
-  list-style: none;
+.footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-menu {
+  font-size: 12px;
+
+}
+ul.footer-menu {
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .footer-menu li {
   display: inline;
   margin-right: 20px;
-}
-
-.footer-menu {
-  font-size: 12px;
-  color: #333;
 }
 
 a {
@@ -76,11 +90,3 @@ a:hover {
   border-color: #333;
   color: inherit;
 }
-
-/* .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-} */

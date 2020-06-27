@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="footer border-top">
-      <ul className="footer-menu">
+    <footer className="footer">
+      <ul className="footer-items">
         <li>
           &copy; Notify.is 2020
         </li>

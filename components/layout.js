@@ -1,7 +1,14 @@
-import styles from '../styles/layout.module.css'
+import Nav from './nav'
+import Footer from './footer'
 
 export default function Layout({ children }) {
   return (
-    <div className={styles.container}>{children}</div>
+    <div>
+      <Nav />
+
+      {children}
+
+      <Footer />
+    </div>
   )
 }

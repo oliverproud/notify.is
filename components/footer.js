@@ -5,21 +5,21 @@ export default function Footer() {
     <footer className="footer">
       <ul className="footer-items">
         <li>
-          &copy; Notify.is 2020
+          <span>&copy; Notify.is 2020</span>
         </li>
         <li>
-          <Link href="#">
+          <Link href="/privacy">
             <a>Privacy</a>
           </Link>
         </li>
         <li>
-          <Link href="#">
+          <Link href="/tos">
             <a>Terms</a>
           </Link>
         </li>
         <li>
-          <Link href="#">
-            <a>Contact</a>
+          <Link href="/contact">
+            <a>Contact us</a>
           </Link>
         </li>
         <li>

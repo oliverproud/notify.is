@@ -29,13 +29,11 @@ export default function Privacy() {
         <p className="p-privacy">Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to <Link href="/contact"><a className="privacy-contact">contact us.</a></Link></p>
         <p className="p-privacy">This policy is effective as of 25 June 2020.</p>
 
-
         <style jsx>{`
           .p-privacy {
             font-size: 18px;
             font-weight: normal;
             margin-top: 20px;
-            width: 100%;
           }
           .privacy-contact {
             text-decoration: underline;

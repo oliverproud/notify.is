@@ -30,13 +30,11 @@ export default function About() {
         <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
         <Link href="#"><a className="btn nav-btn">Get notified</a></Link>
 
-
         <style jsx>{`
           .p-about {
             font-size: 18px;
             font-weight: normal;
             margin-top: 20px;
-            width: 75%;
           }
           `}
         </style>

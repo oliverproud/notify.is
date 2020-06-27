@@ -21,6 +21,7 @@ export default function About() {
         <h1 className="display-4">Contact</h1>
         <p>Send us an email:</p>
         <h1><a className="a-contact" href="mailto:support@notify.is">support@notify.is</a></h1>
+        
         <style jsx>{`
           a {
             text-decoration: underline;

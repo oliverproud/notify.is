@@ -58,13 +58,11 @@ export default function Privacy() {
         <h3>8. Governing Law</h3>
         <p className="p-tos">These terms and conditions are governed by and construed in accordance with the laws of United Kingdom and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
 
-
         <style jsx>{`
           .p-tos {
             font-size: 18px;
             font-weight: normal;
             margin-top: 20px;
-            width: 100%;
           }
           .h3-tos {
             margin-top: 20px;

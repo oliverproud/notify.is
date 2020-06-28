@@ -21,7 +21,7 @@ export default function Test() {
         <form className="form-signup">
           <div className="form-row">
             <div className="form-label-group col">
-              <input type="text" id="inputFirstName" className="form-control" placeholder="First name" required autoFocus />
+              <input type="text" id="inputFirstName" className="form-control" placeholder="First name" required />
               <label htmlFor="inputFirstName">First name</label>
             </div>
 

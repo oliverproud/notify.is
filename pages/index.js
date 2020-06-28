@@ -33,7 +33,7 @@ export default function Home() {
               <li>Email address</li>
               <li>Unavailable username</li>
             </ul>
-            <button type="button" className="btn btn-lg signup-btn">Get notified</button>
+            <Link href="/signup"><a className="btn btn-lg signup-btn">Get notified</a></Link>
           </div>
         </div>
       </div>

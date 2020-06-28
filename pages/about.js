@@ -28,7 +28,7 @@ export default function About() {
           <li>Email address</li>
         </ul>
         <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
-        <Link href="#"><a className="btn nav-btn">Get notified</a></Link>
+        <Link href="/signup"><a className="btn nav-btn">Get notified</a></Link>
 
         <style jsx>{`
           .p-about {

@@ -39,7 +39,7 @@ export default function Test() {
           </div>
 
           <div className="form-label-group" >
-            <input type="text" id="inputUsername" className="form-control" placeholder="Username" required />
+            <input type="text" id="inputUsername" autocorrect="off" autocapitalize="none" className="form-control" placeholder="Username" required />
             <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="inputUsername">Username</label>
           </div>

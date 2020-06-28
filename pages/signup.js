@@ -16,9 +16,9 @@ export default function Test() {
         <link rel="manifest" href="/site.webmanifest"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
       </Head>
-
       <div className="form-container">
         <form className="form-signup">
+        <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
               <input type="text" id="inputFirstName" className="form-control" placeholder="First name" required />

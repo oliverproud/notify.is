@@ -16,6 +16,7 @@ export default function Test() {
         <link rel="manifest" href="/site.webmanifest"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
       </Head>
+
       <div className="form-container">
         <form className="form-signup">
         <h1 className="display-4 pb-3">Get notified</h1>
@@ -52,5 +53,6 @@ export default function Test() {
           <p className="mt-5 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
         </form>
       </div>
+      
     </Layout>
 )}

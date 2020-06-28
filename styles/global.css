@@ -92,7 +92,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .form-signup {
@@ -100,12 +100,13 @@ a:hover {
   max-width: 420px;
   padding: 15px;
 }
+
 @media (max-width: 768px) {
   .form-signup {
     padding: 20px;
   }
   .form-container {
-    margin-top: 20px;
+    margin-top: 0px;
   }
 }
 

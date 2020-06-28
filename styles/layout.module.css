@@ -4,6 +4,7 @@
   flex-direction: column;
 }
 
+/* pushes footer to bottom of page */
 .main {
   display: flex;
   flex: 1;

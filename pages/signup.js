@@ -37,14 +37,14 @@ export default function Test() {
             <label htmlFor="inputUsername">Username</label>
           </div>
 
-          <div className="checkbox mb-1">
+          <div className="checkbox pt-3 mb-1">
             <label>
               <input type="checkbox" value="agree" required/> By checking this box you agree to our:
             </label>
           </div>
           <span className="grey termslabel"><Link href="/tos"><a  target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a target="_blank">Privacy Policy</a></Link></span>
           <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Sign up</button>
-          <p className="mt-5 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
+          <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
         </form>
       </div>
 

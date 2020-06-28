@@ -11,7 +11,7 @@ export default function Privacy() {
       </Head>
 
       <div className="intro-header px-3 py-3 pt-md-5 pb-md-5 mx-auto">
-        <h1 className="display-4">Notify Terms of Service</h1>
+        <h1 className="display-4">Notify.is Terms of Service</h1>
         <h3 className="h3-tos">1. Terms</h3>
         <p className="p-tos">By accessing the website at <Link href="/"><a>https://notify.is</a></Link>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local
           laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.</p>
@@ -65,6 +65,5 @@ export default function Privacy() {
       </div>
 
     </Layout>
-
-
-)}
+  )
+}

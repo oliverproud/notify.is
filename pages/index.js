@@ -15,7 +15,7 @@ export default function Home() {
         <div className="card mb-4 shadow-sm text-center">
           <div className="card-body">
             <h1 className="card-title card-title">
-              <small className="text-muted">You give us</small>
+              <small>You give us</small>
             </h1>
             <ul className="list-unstyled mt-3 mb-4">
               <li>Your name</li>
@@ -28,6 +28,5 @@ export default function Home() {
       </div>
 
     </Layout>
-
-
-)}
+  )
+}

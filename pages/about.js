@@ -16,9 +16,9 @@ export default function About() {
         <p className="p-about">We automatically check with Instagram for the availability of your username, when it's available we'll send you an email letting you know.</p>
         <p className="p-about">Sound good? Get notified with just your: </p>
         <ul>
-          <li>Favourite username</li>
           <li>Name</li>
           <li>Email address</li>
+          <li>Unavailable username</li>
         </ul>
         <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
         <Link href="/signup"><a className="btn nav-btn">Get notified</a></Link>
@@ -34,6 +34,5 @@ export default function About() {
       </div>
 
     </Layout>
-
-
-)}
+  )
+}

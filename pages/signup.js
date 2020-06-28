@@ -40,12 +40,13 @@ export default function Test() {
 
           <div className="form-label-group" >
             <input type="text" id="inputUsername" className="form-control" placeholder="Username" required />
+            <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="inputUsername">Username</label>
           </div>
 
           <div className="checkbox mb-1">
             <label>
-              <input type="checkbox" value="agree" /> By checking this box you agree to our:
+              <input type="checkbox" value="agree" required/> By checking this box you agree to our:
             </label>
           </div>
           <span className="grey termslabel"><Link href="/tos"><a  target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a target="_blank">Privacy Policy</a></Link></span>

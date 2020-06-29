@@ -19,6 +19,7 @@
 .DS_Store
 /email templates
 /privacy policy
+/components/nav-working.js
 
 # debug
 npm-debug.log*

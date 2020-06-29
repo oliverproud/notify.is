@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
+import IntroHeader from '../components/introHeader'
 
 export default function About() {
   return (
@@ -10,7 +11,7 @@ export default function About() {
         <title>About - Notify.is</title>
       </Head>
 
-      <div className="intro-header px-3 py-3 pt-md-5 pb-md-5 mx-auto">
+      <IntroHeader>
         <h1 className="display-4">About</h1>
         <p className="p-about">We know how frustrating it is when your favourite username is taken, that's why we built Notify.</p>
         <p className="p-about">We automatically check with Instagram for the availability of your username, when it's available we'll send you an email letting you know.</p>
@@ -32,7 +33,6 @@ export default function About() {
           .about-btn {
             border-color: #333;
             color: inherit;
-            margin-left: .5rem!important;
           }
           .about-btn:hover {
             background-color: #333;
@@ -41,7 +41,7 @@ export default function About() {
           }
           `}
         </style>
-      </div>
+      </IntroHeader>
 
     </Layout>
   )

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
+import IntroHeader from '../components/introHeader'
 
 export default function About() {
   return (
@@ -10,7 +11,7 @@ export default function About() {
         <title>Contact us - Notify.is</title>
       </Head>
 
-      <div className="intro-header px-3 py-3 pt-md-5 pb-md-5 mx-auto">
+      <IntroHeader>
         <h1 className="display-4">Contact</h1>
         <p>Send us an email:</p>
         <h1><a className="a-contact" href="mailto:support@notify.is">support@notify.is</a></h1>
@@ -24,7 +25,7 @@ export default function About() {
           }
           `}
         </style>
-      </div>
+      </IntroHeader>
 
     </Layout>
   )

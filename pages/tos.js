@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
+import IntroHeader from '../components/introHeader'
 
 export default function Privacy() {
   return (
@@ -10,7 +11,7 @@ export default function Privacy() {
         <title>Terms of Service - Notify.is</title>
       </Head>
 
-      <div className="intro-header px-3 py-3 pt-md-5 pb-md-5 mx-auto">
+      <IntroHeader>
         <h1 className="display-4">Notify.is Terms of Service</h1>
         <h3 className="h3-tos">1. Terms</h3>
         <p className="p-tos">By accessing the website at <Link href="/"><a>https://notify.is</a></Link>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local
@@ -62,7 +63,7 @@ export default function Privacy() {
           }
           `}
         </style>
-      </div>
+      </IntroHeader>
 
     </Layout>
   )

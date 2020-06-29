@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
+import IntroHeader from '../components/introHeader'
 
 export default function Privacy() {
   return (
@@ -10,7 +11,7 @@ export default function Privacy() {
         <title>Privacy Policy - Notify.is</title>
       </Head>
 
-      <div className="intro-header px-3 py-3 pt-md-5 pb-md-5 mx-auto">
+      <IntroHeader>
         <h1 className="display-4">Privacy Policy</h1>
         <small className="text-muted">This policy is effective as of 25 June 2020.</small>
         <p className="p-privacy">Your privacy is important to us. It is Notify.is policy to respect your privacy regarding any information we may collect from you across our website, <Link  href="/"><a>https://notify.is</a></Link>.</p>
@@ -21,7 +22,7 @@ export default function Privacy() {
         <p className="p-privacy">Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.</p>
         <p className="p-privacy">You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.</p>
         <p className="p-privacy">Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to <Link href="/contact"><a className="privacy-contact">contact us.</a></Link></p>
-  
+
         <style jsx>{`
           .p-privacy {
             font-size: 18px;
@@ -36,7 +37,7 @@ export default function Privacy() {
           }
           `}
         </style>
-      </div>
+      </IntroHeader>
 
     </Layout>
   )

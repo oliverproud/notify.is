@@ -23,7 +23,7 @@ export default function Footer() {
           </Link>
         </li>
         <li>
-          <Link href="#">
+          <Link href="/delete">
             <a>Delete my info</a>
           </Link>
         </li>

@@ -87,7 +87,6 @@ a:hover {
 .form-signup {
   width: 100%;
   max-width: 420px;
-  padding: 15px;
 }
 
 @media (max-width: 768px) {
@@ -95,7 +94,7 @@ a:hover {
     padding: 20px;
   }
   .form-container {
-    margin-top: 0px;
+    margin-top: 50px;
   }
 }
 

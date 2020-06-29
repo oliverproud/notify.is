@@ -48,6 +48,13 @@ export default function Test() {
         </form>
       </div>
 
+      <style jsx>{`
+        .display-4 {
+          font-weight: 700;
+        }
+            `}
+      </style>
+
     </Layout>
   )
 }

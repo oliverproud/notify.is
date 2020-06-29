@@ -5,29 +5,40 @@ export default function Footer() {
     <footer className="footer">
       <ul className="list-inline footer-items">
         <li className="list-inline-item">
-          <span>&copy; Notify.is 2020 |</span>
+          <span>&copy; Notify.is 2020</span>
         </li>
+        <span className="footer-span">|</span>
         <li className="list-inline-item">
           <Link href="/privacy">
-            <a>Privacy |</a>
+            <a>Privacy</a>
           </Link>
         </li>
+        <span className="footer-span">|</span>
         <li className="list-inline-item">
           <Link href="/tos">
-            <a>Terms |</a>
+            <a>Terms</a>
           </Link>
         </li>
+        <span className="footer-span">|</span>
         <li className="list-inline-item">
           <Link href="/contact">
-            <a>Contact us |</a>
+            <a>Contact us</a>
           </Link>
         </li>
+        <span className="footer-span">|</span>
         <li className="list-inline-item">
           <Link href="/delete">
             <a>Delete my info</a>
           </Link>
         </li>
       </ul>
+
+      <style jsx>{`
+          .footer-span {
+            margin-right: .5rem;
+          }
+            `}
+      </style>
     </footer>
   )
 }

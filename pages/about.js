@@ -34,7 +34,6 @@ export default function About() {
             color: inherit;
             margin-left: .5rem!important;
           }
-
           .about-btn:hover {
             background-color: #333;
             border-color: #333;

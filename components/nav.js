@@ -20,8 +20,8 @@ export default function Navigation() {
         <Nav className="ml-auto">
           <Link href="/about"><a className="p-2">About</a></Link>
           <Link href="/contact"><a className="p-2">Contact us</a></Link>
-          <Link href="/signup"><a className="btn nav-btn">Get notified</a></Link>
         </Nav>
+        <Link href="/signup"><a className="btn nav-btn">Get notified</a></Link>
       </Navbar.Collapse>
 
       <style jsx>{`

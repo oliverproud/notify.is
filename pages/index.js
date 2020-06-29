@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <Layout>
 
-      <div className="intro-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <div className="intro-header px-5 py-3 pt-5 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 className="display-4">Notify.is</h1>
         <p>Get notified when your favourite username on Instagram becomes available.</p>
       </div>

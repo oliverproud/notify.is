@@ -21,7 +21,7 @@ export default function Navigation() {
           <Link href="/about"><a className="p-2">About</a></Link>
           <Link href="/contact"><a className="p-2">Contact us</a></Link>
         </Nav>
-        <Link href="/signup"><a className="btn nav-btn">Get notified</a></Link>
+        <Link href="/signup"><a className="btn nav-btn mt-2 mt-lg-0">Get notified</a></Link>
       </Navbar.Collapse>
 
       <style jsx>{`

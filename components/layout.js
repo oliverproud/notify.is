@@ -19,9 +19,9 @@ export default function Layout({ children }) {
 
       <Navigation />
 
-      {children}
-
-      <main className={layout.main}></main>
+      <main className={layout.main}>
+        {children}
+      </main>
 
       <Footer />
     </div>

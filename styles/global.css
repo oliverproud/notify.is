@@ -20,6 +20,14 @@ body {
   max-width: 700px;
 }
 
+.container-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
 .intro-header h1 {
   font-weight: 700;
 }
@@ -36,9 +44,11 @@ body {
   display: flex;
   align-items: center;
 }
+
 .footer-items {
   font-size: 12px;
 }
+
 ul.footer-items {
   margin: 0;
   padding-left: 20px;
@@ -59,7 +69,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  margin: 0 auto;
 }
 
 .form-signup {
@@ -70,9 +80,6 @@ a:hover {
 @media (max-width: 768px) {
   .form-signup {
     padding: 20px;
-  }
-  .form-container {
-    margin-top: 50px;
   }
 }
 

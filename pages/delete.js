@@ -17,20 +17,20 @@ export default function About() {
         <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
           <div className="form-row mt-4">
             <div className="form-label-group col">
-              <input type="text" id="inputFirstName" className="form-control" placeholder="First name" required />
-              <label htmlFor="inputFirstName">First name</label>
+              <input type="text" id="firstname" name="firstname" className="form-control" placeholder="First name" required />
+              <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="inputLastName" className="form-control" placeholder="Last name"  required />
-              <label htmlFor="inputLastName">Last name</label>
+              <input type="text" id="lastname" name="lastname" className="form-control" placeholder="Last name"  required />
+              <label htmlFor="lastname">Last name</label>
             </div>
           </div>
 
           <div className="form-label-group">
-            <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required />
+            <input type="email" id="email" name="email" className="form-control" placeholder="Email address" required />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-            <label htmlFor="inputEmail">Email address</label>
+            <label htmlFor="email">Email address</label>
           </div>
 
           <div className="checkbox pt-3 mb-1">

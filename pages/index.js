@@ -21,31 +21,31 @@ export default function Home() {
       </div>
 
       <style jsx>{`
-          .p-signup {
-            font-size: 18px;
+        .p-signup {
+          font-size: 18px;
+        }
+
+        .home {
+          max-width: 500px;
+        }
+        `}
+      </style>
+
+      <style jsx global>{`
+          .signup-btn {
+            background-color: #333!important;
+            border-color: #333!important;
+            padding: 1rem 2rem!important;
+            color: #FFF!important;
           }
 
-          .home {
-            max-width: 500px;
+          .signup-btn:hover {
+            background-color: #FFF!important;
+            border-color: #333!important;
+            color: inherit!important;
           }
           `}
-        </style>
-
-        <style jsx global>{`
-            .signup-btn {
-              background-color: #333!important;
-              border-color: #333!important;
-              padding: 1rem 2rem!important;
-              color: #FFF!important;
-            }
-
-            .signup-btn:hover {
-              background-color: #FFF!important;
-              border-color: #333!important;
-              color: inherit!important;
-            }
-            `}
-          </style>
+      </style>
     </Layout>
   )
 }

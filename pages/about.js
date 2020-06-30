@@ -22,7 +22,7 @@ export default function About() {
           <li>Unavailable username</li>
         </ul>
         <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
-        <Link href="/signup"><a className="btn about-btn">Get notified</a></Link>
+        <Link href="/signup"><a className="btn about-btn mt-1">Get notified</a></Link>
 
         <style jsx>{`
           .p-about {
@@ -33,6 +33,7 @@ export default function About() {
           .about-btn {
             border-color: #333;
             color: inherit;
+            padding: 1rem 3rem!important;
           }
           .about-btn:hover {
             background-color: #333;

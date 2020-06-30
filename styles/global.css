@@ -20,14 +20,6 @@ body {
   max-width: 700px;
 }
 
-.container-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
 .intro-header h1 {
   font-weight: 700;
 }
@@ -36,10 +28,17 @@ body {
   font-size: 24px;
 }
 
+.container-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
 .footer {
   width: 100%;
   height: 100px;
-  margin-top: 40px;
   border-top: 1px solid #eaeaea;
   display: flex;
   align-items: center;
@@ -64,13 +63,6 @@ a:hover {
 }
 
 /* Floating placeholder signup form */
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
 
 .form-signup {
   width: 100%;

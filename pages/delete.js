@@ -11,7 +11,7 @@ export default function About() {
         <title>Delete my info - Notify.is</title>
       </Head>
 
-      <div className="form-container">
+      <div className="container-center">
         <form className="form-signup">
         <h1 className="display-4">Delete my info</h1>
         <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>

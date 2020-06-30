@@ -10,7 +10,7 @@ export default function Test() {
         <title>Signup - Notify.is</title>
       </Head>
 
-      <div className="form-container">
+      <div className="container-center">
         <form className="form-signup">
         <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">

@@ -12,6 +12,10 @@ body {
   }
 }
 
+::selection {
+  background: #00FFB0;
+}
+
 .container {
   max-width: 660px;
 }

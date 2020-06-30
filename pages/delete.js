@@ -12,7 +12,7 @@ export default function About() {
       </Head>
 
       <div className="container-center">
-        <form className="form-signup">
+        <form className="form">
         <h1 className="display-4">Delete my info</h1>
         <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
           <div className="form-row mt-4">

@@ -11,8 +11,8 @@ export default function Test() {
       </Head>
 
       <div className="container-center">
-        <form className="form-signup">
-        <h1 className="display-4 pb-3">Get notified</h1>
+        <form className="form">
+          <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
               <input type="text" id="inputFirstName" className="form-control" placeholder="First name" required />

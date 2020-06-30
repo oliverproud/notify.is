@@ -22,7 +22,7 @@ export default function About() {
             <li>Email address</li>
             <li>Unavailable username</li>
           </ul>
-          <p className="p-about">No accounts, no passwords. Just an email, from Notify.</p>
+          <p className="p-about">No accounts, no passwords. Just an email, from Notify.is.</p>
           <Link href="/signup"><a className="btn about-btn mt-1">Get notified</a></Link>
 
           <style jsx>{`

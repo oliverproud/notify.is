@@ -42,7 +42,9 @@ export default function Test() {
               <input type="checkbox" value="agree" required/> By checking this box you agree to our:
             </label>
           </div>
-          <span className="grey termslabel"><Link href="/tos"><a  target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a target="_blank">Privacy Policy</a></Link></span>
+          <span className="grey termslabel">
+            <Link href="/tos"><a className="terms" target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a className="terms" target="_blank">Privacy Policy</a></Link>
+          </span>
           <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Sign up</button>
           <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
         </form>
@@ -51,6 +53,13 @@ export default function Test() {
       <style jsx>{`
         .display-4 {
           font-weight: 700;
+        }
+
+        .terms {
+          text-decoration: underline;
+        }
+        .terms:hover {
+          text-decoration: none;
         }
             `}
       </style>

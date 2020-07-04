@@ -22,7 +22,7 @@ export default function Signup() {
     e.preventDefault();
     const res = await signupHandler(inputs);
     if (res) setError(res);
-    Router.push('/api/signup')
+    
   };
 
   const handleInputChange = (e) => {

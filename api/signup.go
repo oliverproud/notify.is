@@ -17,9 +17,9 @@ type SignupDetails struct {
 }
 
 const (
-	host   = "oliverproud.ddns.net"
+	host   = "34.71.218.171"
 	port   = 5432
-	user   = "oliverproud"
+	user   = "postgres"
 	dbname = "notify"
 )
 

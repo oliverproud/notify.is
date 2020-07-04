@@ -9,4 +9,5 @@ export async function signupHandler(SignupInputs) {
   const data = new URLSearchParams(SignupInputs);
   const res = await post("/api/signup", data)
 
+  await Router.push("/thanks");
 }

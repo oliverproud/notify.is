@@ -9,4 +9,5 @@ export async function deleteHandler(deleteInputs) {
   const data = new URLSearchParams(deleteInputs);
   const res = await post("/api/delete", data)
 
+  await Router.push("/confirmDelete");
 }

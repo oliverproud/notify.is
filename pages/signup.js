@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 
 import React, { useState } from "react"
 import { signupHandler } from "../services/signup"
+import Router from "next/router";
 
 export default function Signup() {
 
@@ -21,6 +22,7 @@ export default function Signup() {
     e.preventDefault();
     const res = await signupHandler(inputs);
     if (res) setError(res);
+    Router.push('/api/signup')
   };
 
   const handleInputChange = (e) => {
@@ -42,7 +44,7 @@ export default function Signup() {
 
         {error ? <p>Error: {error}</p> : null}
 
-        <form className="form" onSubmit={handleSubmit} formAction='/api/signup'>
+        <form className="form" onSubmit={handleSubmit}>
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">

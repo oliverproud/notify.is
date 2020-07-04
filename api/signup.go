@@ -32,7 +32,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		username:  r.FormValue("username"),
 	}
 
-	fmt.Fprintf(w, "Post request r.PostFrom = %v\n", r.PostForm)
 	fmt.Fprintf(w, "First name = %s\n", details.firstName)
 	fmt.Fprintf(w, "Last name = %s\n", details.lastName)
 	fmt.Fprintf(w, "Email address = %s\n", details.email)

@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"notify.is-go/database"
 )
@@ -15,6 +16,12 @@ type SignupDetails struct {
 	username  string
 }
 
+const (
+	port   = 5432
+	user   = "postgres"
+	dbname = "notify"
+)
+
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/api/signup" {
@@ -22,7 +29,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", os.Getenv("HOST"), port, user, os.Getenv("PASSWORD"), dbname)
 	database.InitDB(psqlInfo)
 
 	defer database.CloseDB()

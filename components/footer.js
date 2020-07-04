@@ -31,6 +31,10 @@ export default function Footer() {
             <a>Delete my info</a>
           </Link>
         </li>
+        <span className="footer-span">|</span>
+        <li className="list-inline-item test">
+          <a href="https://oliverproud.com">Built by Oliver Proud</a>
+        </li>
       </ul>
 
       <style jsx>{`

@@ -22,7 +22,7 @@ export default function Signup() {
     e.preventDefault();
     const res = await signupHandler(inputs);
     if (res) setError(res);
-    
+
   };
 
   const handleInputChange = (e) => {
@@ -48,12 +48,12 @@ export default function Signup() {
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required />
+              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" />
               <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name"  required />
+              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" />
               <label htmlFor="lastname">Last name</label>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function Signup() {
           </div>
 
           <div className="form-label-group" >
-            <input type="text" id="username" name="username" onChange={handleInputChange} value={inputs.username} autoCorrect="off" autoCapitalize="none" className="form-control" placeholder="Username" required />
+            <input type="text" id="username" name="username" onChange={handleInputChange} value={inputs.username} autoCorrect="off" autoCapitalize="none" className="form-control" placeholder="Username" required pattern="^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$" />
             <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="username">Username</label>
           </div>

@@ -45,12 +45,12 @@ export default function About() {
         <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
           <div className="form-row mt-4">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required />
+              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" />
               <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name"  required />
+              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" />
               <label htmlFor="lastname">Last name</label>
             </div>
           </div>

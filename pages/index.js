@@ -30,22 +30,6 @@ export default function Home() {
         }
         `}
       </style>
-
-      <style jsx global>{`
-          .signup-btn {
-            background-color: #333!important;
-            border-color: #333!important;
-            padding: 1rem 2rem!important;
-            color: #FFF!important;
-          }
-
-          .signup-btn:hover {
-            background-color: #FFF!important;
-            border-color: #333!important;
-            color: inherit!important;
-          }
-          `}
-      </style>
     </Layout>
   )
 }

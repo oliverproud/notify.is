@@ -3,7 +3,35 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import IntroHeader from '../components/introHeader'
 
+import React, { useState } from "react"
+import { deleteHandler } from "../services/delete"
+
 export default function About() {
+
+  const initialValues = {
+    firstname: "",
+    lastname: "",
+    email: "",
+  }
+
+  const [inputs, setInputs] = useState(initialValues);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await deleteHandler(inputs);
+    if (res) setError(res);
+  };
+
+  const handleInputChange = (e) => {
+    e.persist();
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
   return (
     <Layout>
 
@@ -12,23 +40,23 @@ export default function About() {
       </Head>
 
       <div className="container-center">
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
         <h1 className="display-4">Delete my info</h1>
         <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
           <div className="form-row mt-4">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" className="form-control" placeholder="First name" required />
+              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required />
               <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" className="form-control" placeholder="Last name"  required />
+              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name"  required />
               <label htmlFor="lastname">Last name</label>
             </div>
           </div>
 
           <div className="form-label-group">
-            <input type="email" id="email" name="email" className="form-control" placeholder="Email address" required />
+            <input type="email" id="email" name="email" onChange={handleInputChange} value={inputs.email} className="form-control" placeholder="Email address" required />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             <label htmlFor="email">Email address</label>
           </div>

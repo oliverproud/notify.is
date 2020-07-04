@@ -2,7 +2,35 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
 
+import React, { useState } from "react"
+import { signupHandler } from "../services/signup"
+
 export default function Signup() {
+
+  const initialValues = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    username: ""
+  }
+
+  const [inputs, setInputs] = useState(initialValues);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await signupHandler(inputs);
+    if (res) setError(res);
+  };
+
+  const handleInputChange = (e) => {
+    e.persist();
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <Layout>
 
@@ -11,28 +39,31 @@ export default function Signup() {
       </Head>
 
       <div className="container-center">
-        <form className="form">
+
+        {error ? <p>Error: {error}</p> : null}
+
+        <form className="form" onSubmit={handleSubmit} formAction='/api/signup'>
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" className="form-control" placeholder="First name" required />
+              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required />
               <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" className="form-control" placeholder="Last name"  required />
+              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name"  required />
               <label htmlFor="lastname">Last name</label>
             </div>
           </div>
 
           <div className="form-label-group">
-            <input type="email" id="email" name="email" className="form-control" placeholder="Email address" required />
+            <input type="email" id="email" name="email" onChange={handleInputChange} value={inputs.email} className="form-control" placeholder="Email address" required />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             <label htmlFor="email">Email address</label>
           </div>
 
           <div className="form-label-group" >
-            <input type="text" id="username" name="username" autoCorrect="off" autoCapitalize="none" className="form-control" placeholder="Username" required />
+            <input type="text" id="username" name="username" onChange={handleInputChange} value={inputs.username} autoCorrect="off" autoCapitalize="none" className="form-control" placeholder="Username" required />
             <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="username">Username</label>
           </div>

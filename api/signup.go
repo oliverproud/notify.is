@@ -17,7 +17,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "Post from website! r.PostFrom = %v\n", r.PostForm)
 	firstName := r.FormValue("firstname")
-	lastName := r.FormValue("firstname")
+	lastName := r.FormValue("lastname")
 	email := r.FormValue("email")
 	username := r.FormValue("username")
 	fmt.Fprintf(w, "First name = %s\n", firstName)

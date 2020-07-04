@@ -48,12 +48,12 @@ export default function Signup() {
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" />
+              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
               <label htmlFor="firstname">First name</label>
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" />
+              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
               <label htmlFor="lastname">Last name</label>
             </div>
           </div>

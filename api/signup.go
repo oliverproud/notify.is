@@ -19,7 +19,7 @@ type SignupDetails struct {
 const (
 	host   = "***REMOVED***"
 	port   = 5432
-	user   = "oliverproud"
+	user   = "postgres"
 	dbname = "notify"
 )
 

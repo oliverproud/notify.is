@@ -3,6 +3,9 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"os"
+
+	"notify.is-go/database"
 )
 
 // DeletionDetails parses the form values
@@ -18,6 +21,12 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, os.Getenv("DB_PASSWORD"), dbname)
+	database.InitDB(psqlInfo)
+
+	defer database.CloseDB()
+
 	// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
@@ -33,5 +42,12 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "First name = %s\n", details.firstName)
 	fmt.Fprintf(w, "Last name = %s\n", details.lastName)
 	fmt.Fprintf(w, "Email address = %s\n", details.email)
+
+	result, err := database.DeleteUser(details.firstName, details.lastName, details.email)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Fprintf(w, "%s\n", result)
 
 }

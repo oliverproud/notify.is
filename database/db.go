@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -21,10 +20,4 @@ func InitDB(dataSourceName string) {
 	if err = db.Ping(); err != nil {
 		log.Panic(err)
 	}
-}
-
-// CloseDB closes the database connection
-func CloseDB() error {
-	fmt.Println("DB Connection Closed")
-	return db.Close()
 }

@@ -21,11 +21,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	// database.InitDB(psqlInfo)
-	//
-	// defer database.CloseDB()
-
 	switch r.Method {
 	case "GET":
 		http.Redirect(w, r, "/delete", http.StatusSeeOther)

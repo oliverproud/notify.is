@@ -21,12 +21,10 @@ func InitDB(dataSourceName string) {
 	if err = db.Ping(); err != nil {
 		log.Panic(err)
 	}
-
-	// defer db.Close()
 }
 
 // CloseDB closes the database connection
 func CloseDB() error {
-	fmt.Println("DB Closed")
+	fmt.Println("DB Connection Closed")
 	return db.Close()
 }

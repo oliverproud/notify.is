@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"notify.is-go/database"
 	"notify.is-go/sendgrid"
@@ -17,11 +18,9 @@ type SignupDetails struct {
 }
 
 const (
-	host     = "34.71.218.171"
-	port     = 5432
-	user     = "postgres"
-	password = "4wh7LbTjQJGM8NDxwkaYBKoeXJihYzUCNaLHpXENVhoVqbuZodKaxLBMFAkqNaVJ"
-	dbname   = "notify"
+	port   = 5432
+	user   = "postgres"
+	dbname = "notify"
 )
 
 // SignupForm exposes an API endpoint to send POST requests to
@@ -31,7 +30,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
 	database.InitDB(psqlInfo)
 
 	switch r.Method {

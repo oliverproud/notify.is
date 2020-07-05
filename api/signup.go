@@ -65,7 +65,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				panic(err)
 			}
 
-			fmt.Fprintf(w, "User inserted into db %s\n", result)
+			fmt.Fprintf(w, "User inserted into DB\n%s", result)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records inserted.")
 		}

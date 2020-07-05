@@ -34,29 +34,42 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	database.InitDB(psqlInfo)
 
 	defer database.CloseDB()
-	// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
-	if err := r.ParseForm(); err != nil {
-		fmt.Fprintf(w, "ParseForm() err: %v", err)
-		return
+
+	switch r.Method {
+	case "GET":
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	case "POST":
+
+		if r.Body != http.NoBody {
+
+			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
+			if err := r.ParseForm(); err != nil {
+				fmt.Fprintf(w, "ParseForm() err: %v", err)
+				return
+			}
+
+			details := SignupDetails{
+				firstName: r.FormValue("firstname"),
+				lastName:  r.FormValue("lastname"),
+				email:     r.FormValue("email"),
+				username:  r.FormValue("username"),
+			}
+
+			fmt.Fprintf(w, "First name = %s\n", details.firstName)
+			fmt.Fprintf(w, "Last name = %s\n", details.lastName)
+			fmt.Fprintf(w, "Email address = %s\n", details.email)
+			fmt.Fprintf(w, "Username = %s\n", details.username)
+
+			result, err := database.InsertUser(details.firstName, details.lastName, details.email, details.username)
+			if err != nil {
+				panic(err)
+			}
+
+			fmt.Fprintf(w, "User inserted into db %s\n", result)
+		} else {
+			fmt.Fprintf(w, "Request body is empty. No records inserted.")
+		}
+	default:
+		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
-
-	details := SignupDetails{
-		firstName: r.FormValue("firstname"),
-		lastName:  r.FormValue("lastname"),
-		email:     r.FormValue("email"),
-		username:  r.FormValue("username"),
-	}
-
-	fmt.Fprintf(w, "First name = %s\n", details.firstName)
-	fmt.Fprintf(w, "Last name = %s\n", details.lastName)
-	fmt.Fprintf(w, "Email address = %s\n", details.email)
-	fmt.Fprintf(w, "Username = %s\n", details.username)
-
-	result, err := database.InsertUser(details.firstName, details.lastName, details.email, details.username)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Fprintf(w, "User inserted into db %s\n", result)
-
 }

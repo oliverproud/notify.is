@@ -26,27 +26,39 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 	defer database.CloseDB()
 
-	// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
-	if err := r.ParseForm(); err != nil {
-		fmt.Fprintf(w, "ParseForm() err: %v", err)
-		return
+	switch r.Method {
+	case "GET":
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	case "POST":
+
+		if r.Body != http.NoBody {
+
+			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
+			if err := r.ParseForm(); err != nil {
+				fmt.Fprintf(w, "ParseForm() err: %v", err)
+				return
+			}
+
+			details := DeletionDetails{
+				firstName: r.FormValue("firstname"),
+				lastName:  r.FormValue("lastname"),
+				email:     r.FormValue("email"),
+			}
+
+			fmt.Fprintf(w, "First name = %s\n", details.firstName)
+			fmt.Fprintf(w, "Last name = %s\n", details.lastName)
+			fmt.Fprintf(w, "Email address = %s\n", details.email)
+
+			result, err := database.DeleteUser(details.firstName, details.lastName, details.email)
+			if err != nil {
+				panic(err)
+			}
+
+			fmt.Fprintf(w, "%s\n", result)
+		} else {
+			fmt.Fprintf(w, "Request body is empty. No records deleted.")
+		}
+	default:
+		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
-
-	details := DeletionDetails{
-		firstName: r.FormValue("firstname"),
-		lastName:  r.FormValue("lastname"),
-		email:     r.FormValue("email"),
-	}
-
-	fmt.Fprintf(w, "First name = %s\n", details.firstName)
-	fmt.Fprintf(w, "Last name = %s\n", details.lastName)
-	fmt.Fprintf(w, "Email address = %s\n", details.email)
-
-	result, err := database.DeleteUser(details.firstName, details.lastName, details.email)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Fprintf(w, "%s\n", result)
-
 }

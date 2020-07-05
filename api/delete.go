@@ -54,7 +54,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				panic(err)
 			}
 
-			fmt.Fprintf(w, "%s\n", result)
+			fmt.Fprintf(w, "%s", result)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records deleted.")
 		}

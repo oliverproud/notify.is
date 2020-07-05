@@ -33,8 +33,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 	database.InitDB(psqlInfo)
 
-	defer database.CloseDB()
-
 	switch r.Method {
 	case "GET":
 		http.Redirect(w, r, "/signup", http.StatusSeeOther)
@@ -72,4 +70,5 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
+	defer database.CloseDB()
 }

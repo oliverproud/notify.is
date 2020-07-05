@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"notify.is-go/database"
+	"notify.is-go/sendgrid"
 )
 
 // SignupDetails parses the form values
@@ -62,6 +63,8 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				panic(err)
 			}
+
+			sendgrid.SendEmail(details.email, details.firstName, details.username, "signup")
 
 			fmt.Fprintf(w, "User inserted into DB\n%s", result)
 		} else {

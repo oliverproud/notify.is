@@ -37,7 +37,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/signup", http.StatusSeeOther)
 	case "POST":
 
 		if r.Body != http.NoBody {

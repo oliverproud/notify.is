@@ -28,7 +28,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/delete", http.StatusSeeOther)
 	case "POST":
 
 		if r.Body != http.NoBody {

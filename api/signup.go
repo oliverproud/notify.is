@@ -70,5 +70,4 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
-	defer database.CloseDB()
 }

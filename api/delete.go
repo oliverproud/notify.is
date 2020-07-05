@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"notify.is-go/database"
 )
@@ -21,7 +22,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
 	database.InitDB(psqlInfo)
 
 	switch r.Method {

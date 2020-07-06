@@ -51,7 +51,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			result, err := database.DeleteUser(details.firstName, details.lastName, details.email)
 			if err != nil {
-				log.Println(err)
+				log.Printf("%v", err)
 			}
 
 			fmt.Fprintf(w, "%s", result)

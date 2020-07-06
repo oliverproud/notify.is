@@ -3,7 +3,7 @@
 package sendgrid
 
 import (
-	"fmt"
+	"log"
 	"os"
 
 	sendgrid "github.com/sendgrid/sendgrid-go"
@@ -69,8 +69,8 @@ func SendEmail(email, name, username, emailType string) {
 	request.Body = Body
 	response, err := sendgrid.API(request)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	} else {
-		fmt.Println(response.StatusCode)
+		log.Println(response.StatusCode)
 	}
 }

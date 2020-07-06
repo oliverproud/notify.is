@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"notify.is-go/database"
-	"notify.is-go/sendgrid"
+	"notify.is/database"
+	"notify.is/sendgrid"
 )
 
 // SignupDetails parses the form values

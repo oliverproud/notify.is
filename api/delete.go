@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"notify.is-go/database"
+	"notify.is/database"
 )
 
 // DeletionDetails parses the form values

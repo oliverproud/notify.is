@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -60,7 +61,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			result, err := database.InsertUser(details.firstName, details.lastName, details.email, details.username)
 			if err != nil {
-				panic(err)
+				log.Println(err)
 			}
 
 			sendgrid.SendEmail(details.email, details.firstName, details.username, "signup")

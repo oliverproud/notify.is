@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -50,7 +51,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			result, err := database.DeleteUser(details.firstName, details.lastName, details.email)
 			if err != nil {
-				panic(err)
+				log.Println(err)
 			}
 
 			fmt.Fprintf(w, "%s", result)

@@ -1,11 +1,11 @@
 {
 	"env": {
-		"DB_HOST": "***REMOVED***",
-		"DB_PASSWORD": "***REMOVED***"
+		"DB_HOST": "@DB_HOST",
+		"DB_PASSWORD": "@DB_PASSWORD"
 	},
 	"build": {
 		"env": {
-			"SENDGRID_API_KEY": "***REMOVED***"
+			"SENDGRID_API_KEY": "@SENDGRID_API_KEY"
 		}
 	}
 }

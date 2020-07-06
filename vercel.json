@@ -1,11 +1,11 @@
 {
 	"env": {
-		"DB_HOST": "34.71.218.171",
-		"DB_PASSWORD": "4wh7LbTjQJGM8NDxwkaYBKoeXJihYzUCNaLHpXENVhoVqbuZodKaxLBMFAkqNaVJ"
+		"DB_HOST": "@DB_HOST",
+		"DB_PASSWORD": "@DB_PASSWORD"
 	},
 	"build": {
 		"env": {
-			"SENDGRID_API_KEY": "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"
+			"SENDGRID_API_KEY": "@SENDGRID_API_KEY"
 		}
 	}
 }

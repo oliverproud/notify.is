@@ -69,8 +69,8 @@ func SendEmail(email, name, username, emailType string) {
 	request.Body = Body
 	response, err := sendgrid.API(request)
 	if err != nil {
-		log.Println(err)
+		log.Printf("%v", err)
 	} else {
-		log.Println(response.StatusCode)
+		log.Printf("%v", response.StatusCode)
 	}
 }

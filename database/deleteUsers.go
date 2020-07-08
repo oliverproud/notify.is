@@ -3,21 +3,21 @@ package database
 import "fmt"
 
 // DeleteUser removes a user from the database table 'users'
-func DeleteUser(firstName, lastName, email string) (string, error) {
+func DeleteUser(id string) (string, error) {
 
 	sqlStatement := `
 	DELETE FROM users
-	WHERE first_name = $1 AND last_name = $2 AND email = $3
+	WHERE id = $1
   RETURNING id, first_name, last_name, email;
   `
-	var id int
+	var retID []uint8
 	var retFirstName, retLastName, retEmail string
 
-	err := db.QueryRow(sqlStatement, firstName, lastName, email).Scan(&id, &retFirstName, &retLastName, &retEmail)
+	err := db.QueryRow(sqlStatement, id).Scan(&retID, &retFirstName, &retLastName, &retEmail)
 	if err != nil {
 		return "", err
 	}
 
-	result := fmt.Sprintf("Record removed:\nID: %d,\nName: %s %s,\nEmail: %s", id, retFirstName, retLastName, retEmail)
+	result := fmt.Sprintf("Record removed:\nID: %s,\nName: %s %s,\nEmail: %s", string(retID), retFirstName, retLastName, retEmail)
 	return result, nil
 }

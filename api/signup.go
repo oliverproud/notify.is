@@ -31,7 +31,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
 	database.InitDB(psqlInfo)
 
 	switch r.Method {
@@ -64,7 +64,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				log.Printf("%v", err)
 			}
 
-			sendgrid.SendEmail(details.email, details.firstName, details.username, "signup")
+			sendgrid.SendEmail(details.email, details.firstName, details.username, "", "signup")
 
 			fmt.Fprintf(w, "User inserted into DB\n%s", result)
 		} else {

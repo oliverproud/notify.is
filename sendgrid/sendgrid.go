@@ -10,11 +10,14 @@ import (
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
+const (
+	fromName    = "Notify Support"
+	fromAddress = "support@notify.is"
+)
+
 func signupEmail(email, name, username string) []byte {
 	m := mail.NewV3Mail()
 
-	fromName := "Notify Support"
-	fromAddress := "support@notify.is"
 	e := mail.NewEmail(fromName, fromAddress)
 	m.SetFrom(e)
 
@@ -33,11 +36,30 @@ func signupEmail(email, name, username string) []byte {
 	return mail.GetRequestBody(m)
 }
 
+func deleteEmail(email, name, link string) []byte {
+	m := mail.NewV3Mail()
+
+	e := mail.NewEmail(fromName, fromAddress)
+	m.SetFrom(e)
+
+	m.SetTemplateID("d-d4a93d70f08d4af5a54c2c155b0bb1ab")
+
+	p := mail.NewPersonalization()
+	tos := []*mail.Email{
+		mail.NewEmail(name, email),
+	}
+	p.AddTos(tos...)
+
+	p.SetDynamicTemplateData("first_name", name)
+	p.SetDynamicTemplateData("deletion_link", link)
+
+	m.AddPersonalizations(p)
+	return mail.GetRequestBody(m)
+}
+
 func successEmail(email, name, username string) []byte {
 	m := mail.NewV3Mail()
 
-	fromName := "Notify Support"
-	fromAddress := "support@notify.is"
 	e := mail.NewEmail(fromName, fromAddress)
 	m.SetFrom(e)
 
@@ -57,20 +79,22 @@ func successEmail(email, name, username string) []byte {
 }
 
 // SendEmail sends a Dynamic Template email using SendGrid API
-func SendEmail(email, name, username, emailType string) {
+func SendEmail(email, name, username, link, emailType string) {
 	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
 	request.Method = "POST"
 	var Body []byte
 	if emailType == "success" {
 		Body = successEmail(email, name, username)
-	} else {
+	} else if emailType == "signup" {
 		Body = signupEmail(email, name, username)
+	} else {
+		Body = deleteEmail(email, name, link)
 	}
 	request.Body = Body
 	response, err := sendgrid.API(request)
 	if err != nil {
 		log.Printf("%v", err)
 	} else {
-		log.Printf("%v", response.StatusCode)
+		log.Printf("%v", response)
 	}
 }

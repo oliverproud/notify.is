@@ -4,7 +4,9 @@ import Layout from '../components/layout'
 
 import React, { useState } from "react"
 import { signupHandler } from "../services/signup"
-import Router from "next/router";
+import Router from "next/router"
+import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 export default function Signup() {
 
@@ -17,12 +19,16 @@ export default function Signup() {
 
   const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const res = await signupHandler(inputs);
-    if (res) setError(res);
-
+    if (res) {
+      setError(res)
+      setLoading(false)
+    };
   };
 
   const handleInputChange = (e) => {
@@ -78,7 +84,16 @@ export default function Signup() {
           <span className="grey termslabel">
             <Link href="/tos"><a className="terms" target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a className="terms" target="_blank">Privacy Policy</a></Link>
           </span>
-          <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Sign up</button>
+          <Button
+            className="btn-lg btn-primary btn-block mt-4"
+            variant="primary"
+            disabled={isLoading}
+            type="submit"
+            >
+            {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
+            {isLoading && <span> Submitting...</span>}
+            {!isLoading && <span>Sign up</span>}
+          </Button>
           <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
         </form>
       </div>

@@ -24,6 +24,9 @@ export default function ConfirmDelete() {
         .p-delete {
           font-size: 20px;
         }
+        .display-4 {
+          padding-bottom: 20px;
+        }
         `}
       </style>
 

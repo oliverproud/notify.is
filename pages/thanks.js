@@ -23,6 +23,9 @@ export default function Thanks() {
         .p-signup {
           font-size: 20px;
         }
+        .display-4 {
+          padding-bottom: 20px;
+        }
         `}
       </style>
 

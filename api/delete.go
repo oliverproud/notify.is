@@ -38,7 +38,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/delete", http.StatusSeeOther)
 		}
 
-		http.Redirect(w, r, "/deleted", http.StatusOK)
+		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
 
 		// fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
 

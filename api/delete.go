@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	
+
 	"notify.is/database"
 	"notify.is/sendgrid"
 )
@@ -35,8 +35,9 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		// Get parameters from URL
 		keys, ok := r.URL.Query()["id"]
 		if !ok || len(keys[0]) < 1 {
-			return
+			http.Redirect(w, r, "/delete", http.StatusSeeOther)
 		}
+
 		fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
 
 		for _, v := range keys {
@@ -70,7 +71,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			var id []uint8
 			rows, err := database.GetUsers(details.email)
 			if err != nil {
-				log.Fatal(err)
+				log.Println(err)
 			}
 
 			// Base URL that will have encoded parameters appended to
@@ -85,14 +86,14 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			for rows.Next() {
 				err := rows.Scan(&id)
 				if err != nil {
-					log.Fatal(err)
+					log.Println(err)
 				}
 				// Convert DB IDs to strings, add as parameters to URL values
 				params.Add("id", string(id))
 			}
 			// Create final URL using base URL and encoded parameters
 			base.RawQuery = params.Encode()
-			fmt.Println(base)
+			log.Println(base)
 
 			sendgrid.SendEmail(details.email, details.firstName, "", base.String(), "delete")
 

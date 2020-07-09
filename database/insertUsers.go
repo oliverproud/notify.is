@@ -16,7 +16,7 @@ func InsertUser(firstName, lastName, email, username string) (string, error) {
 		return "", err
 	}
 
-	result := fmt.Sprintf("New record ID is: %s", string(id))
+	result := fmt.Sprintf("User inserted into DB")
 
 	return result, nil
 }

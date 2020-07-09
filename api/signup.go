@@ -66,7 +66,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			sendgrid.SendEmail(details.email, details.firstName, details.username, "", "signup")
 
-			fmt.Fprintf(w, "User inserted into DB\n%s", result)
+			fmt.Fprintf(w, "\n%s", result)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records inserted.")
 		}

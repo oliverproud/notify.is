@@ -93,6 +93,12 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				// Convert DB IDs to strings, add as parameters to URL values
 				params.Add("id", string(id))
 			}
+
+			if len(params) == 0 {
+				log.Println("No user IDs found relating to: ", details.email)
+				return
+			}
+
 			// Create final URL using base URL and encoded parameters
 			base.RawQuery = params.Encode()
 			log.Println(base)

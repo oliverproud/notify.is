@@ -9,13 +9,14 @@ func InsertUser(firstName, lastName, email, username string) (string, error) {
   INSERT INTO users (first_name, last_name, email, username)
   VALUES ($1, $2, $3, $4)
   RETURNING id`
-	id := 0
+
+	var id []uint8
 	err := db.QueryRow(sqlStatement, firstName, lastName, email, username).Scan(&id)
 	if err != nil {
 		return "", err
 	}
 
-	result := fmt.Sprintf("New record ID is: %d", id)
+	result := fmt.Sprintf("New record ID is: %s", string(id))
 
 	return result, nil
 }

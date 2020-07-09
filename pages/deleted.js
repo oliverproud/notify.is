@@ -14,7 +14,7 @@ export default function ConfirmDelete() {
       <div className="container-center">
         <div className="intro-header px-4">
           <h1 className="display-4">Your information has been deleted.</h1>
-          <p className="p-delete">Thank you for using Notify.is, you can re-join at any time.</p>
+          <p className="p-delete">Thank you for using Notify.is.</p>
           <p className="p-delete"></p>
         </div>
       </div>

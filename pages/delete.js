@@ -5,6 +5,9 @@ import IntroHeader from '../components/introHeader'
 
 import React, { useState } from "react"
 import { deleteHandler } from "../services/delete"
+import Router from "next/router"
+import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 export default function About() {
 
@@ -16,11 +19,16 @@ export default function About() {
 
   const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const res = await deleteHandler(inputs);
-    if (res) setError(res);
+    if (res) {
+      setError(res)
+      setLoading(false)
+    };
   };
 
   const handleInputChange = (e) => {
@@ -66,7 +74,16 @@ export default function About() {
               <input type="checkbox" value="agree" required/> By checking this box you are confirming you want to delete your data.
             </label>
           </div>
-          <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Delete</button>
+          <Button
+            className="btn-lg btn-primary btn-block mt-4"
+            variant="primary"
+            disabled={isLoading}
+            type="submit"
+            >
+            {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
+            {isLoading && <span> Submitting...</span>}
+            {!isLoading && <span>Delete</span>}
+          </Button>
           <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
         </form>
       </div>

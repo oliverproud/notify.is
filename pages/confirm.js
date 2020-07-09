@@ -13,7 +13,7 @@ export default function ConfirmDelete() {
 
       <div className="container-center">
         <div className="intro-header px-4">
-          <h1 className="display-4">Your deletion request has been processed.</h1>
+          <h1 className="display-4">Please check your email.</h1>
           <p className="p-delete">You should receive a confirmation email within the next few minutes.</p>
           <p className="p-delete">Please confirm that you want to delete your information by clicking the link in the email.</p>
           <p className="p-delete">Upon confirmation you will no longer be signed up to our service but you can re-join at any time.</p>

@@ -38,16 +38,16 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/delete", http.StatusSeeOther)
 		}
 
-		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
-		
-		fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
+		http.Redirect(w, r, "/deleted", http.StatusOK)
+
+		// fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
 
 		for _, v := range keys {
 			result, err := database.DeleteUser(v)
 			if err != nil {
 				log.Println(err)
 			}
-			fmt.Fprintf(w, "%v\n", result)
+			log.Printf("%v\n", result)
 		}
 
 	case "POST":

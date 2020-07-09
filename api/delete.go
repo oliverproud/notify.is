@@ -38,6 +38,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/delete", http.StatusSeeOther)
 		}
 
+		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
+		
 		fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
 
 		for _, v := range keys {
@@ -98,7 +100,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			sendgrid.SendEmail(details.email, details.firstName, "", base.String(), "delete")
 
 		} else {
-			fmt.Fprintf(w, "Request body is empty. No records deleted.")
+			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}
 	default:
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")

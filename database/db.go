@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"log"
 
 	//Postgres driver
 	_ "github.com/lib/pq"
@@ -10,15 +11,14 @@ import (
 var db *sql.DB
 
 //InitDB initialises a database instance
-func InitDB(dataSourceName string) error {
+func InitDB(dataSourceName string) {
 	var err error
 	db, err = sql.Open("postgres", dataSourceName)
 	if err != nil {
-		return err
+		log.Printf("%v", err)
 	}
 
 	if err = db.Ping(); err != nil {
-		return err
+		log.Printf("%v", err)
 	}
-	return nil
 }

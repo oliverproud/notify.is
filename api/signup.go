@@ -35,6 +35,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	err := database.InitDB(psqlInfo)
 	if err != nil {
 		log.Println("Error connecting to DB")
+		http.Redirect(w, r, "/", http.StatusBadGateway)
 	}
 
 	switch r.Method {

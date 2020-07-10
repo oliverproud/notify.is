@@ -11,14 +11,17 @@ import (
 var db *sql.DB
 
 //InitDB initialises a database instance
-func InitDB(dataSourceName string) {
+func InitDB(dataSourceName string) error {
 	var err error
 	db, err = sql.Open("postgres", dataSourceName)
 	if err != nil {
 		log.Printf("%v", err)
+		return err
 	}
 
 	if err = db.Ping(); err != nil {
 		log.Printf("%v", err)
+		return err
 	}
+	return nil
 }

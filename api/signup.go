@@ -32,7 +32,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
-	database.InitDB(psqlInfo)
+	err := database.InitDB(psqlInfo)
+	if err != nil {
+		log.Println("Error connecting to DB")
+	}
 
 	switch r.Method {
 	case "GET":

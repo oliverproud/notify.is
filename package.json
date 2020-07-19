@@ -8,8 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@sentry/react": "^5.19.0",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
     "next": "9.4.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "16.13.1",
+    "swr": "^0.2.3"
   }
 }

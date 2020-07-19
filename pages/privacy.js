@@ -14,7 +14,7 @@ export default function Privacy() {
       <div className="container-center">
         <IntroHeader>
           <h1 className="display-4">Privacy Policy</h1>
-          <small className="text-muted">This policy is effective as of 25 June 2020.</small>
+          <small className="text-muted">This policy is effective as of 20 July 2020.</small>
           <p className="p-privacy">Your privacy is important to us. It is Notify.is policy to respect your privacy regarding any information we may collect from you across our website, <Link  href="/"><a>https://notify.is</a></Link>.</p>
           <p className="p-privacy">We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p>
           <p className="p-privacy">We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure,

@@ -87,7 +87,7 @@ export default function Signup() {
           <Button
             className="btn-lg btn-primary btn-block mt-4"
             variant="primary"
-            disabled={isLoading}
+            disabled={methodDoesNotExist}
             type="submit"
             >
             {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}

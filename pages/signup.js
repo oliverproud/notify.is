@@ -50,7 +50,7 @@ export default function Signup() {
 
         {error ? <p>Error: {error}</p> : null}
 
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={methodDoesNotExist}>
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
@@ -87,7 +87,7 @@ export default function Signup() {
           <Button
             className="btn-lg btn-primary btn-block mt-4"
             variant="primary"
-            disabled={methodDoesNotExist}
+            disabled={isLoading}
             type="submit"
             >
             {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}

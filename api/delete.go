@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"os"
 	"fmt"
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 
 	"notify.is/database"
 	"notify.is/sendgrid"
@@ -112,7 +112,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
 }
-
 
 // func main() {
 // 	http.HandleFunc("/api/delete/", DeleteForm)

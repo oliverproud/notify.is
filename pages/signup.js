@@ -50,7 +50,7 @@ export default function Signup() {
 
         {error ? <p>Error: {error}</p> : null}
 
-        <form className="form" onSubmit={methodDoesNotExist}>
+        <form className="form" onSubmit={handleSubmit}>
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">

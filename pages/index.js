@@ -22,9 +22,6 @@ export default function Home() {
           Maintenance in progress.
         </h1>
       </main>
-
-      <Footer />
-      
     </Layout>
   )
 }

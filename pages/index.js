@@ -19,7 +19,7 @@ export default function Home() {
 
       <main className={utilStyles.mainHeader}>
         <h1 className={utilStyles.title}>
-          Notify is coming soon.
+          Maintenance in progress.
         </h1>
       </main>
 

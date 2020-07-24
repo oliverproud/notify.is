@@ -95,6 +95,6 @@ func SendEmail(email, name, username, link, emailType string) {
 	if err != nil {
 		log.Printf("%v", err)
 	} else {
-		log.Printf("%v", response)
+		log.Printf("Sendgrid Response: %v", response.StatusCode)
 	}
 }

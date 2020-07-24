@@ -62,11 +62,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			// Sends signup email
 			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			} else {
-				fmt.Println("Sendgrid Response:", resp.StatusCode)
+				log.Println("Sendgrid Response:", resp.StatusCode)
 			}
-
 			fmt.Fprintf(w, "\n%s", result)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records inserted.")

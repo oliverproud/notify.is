@@ -66,10 +66,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				email:     r.FormValue("email"),
 			}
 
-			fmt.Fprintf(w, "First name = %s\n", details.firstName)
-			fmt.Fprintf(w, "Last name = %s\n", details.lastName)
-			fmt.Fprintf(w, "Email address = %s\n", details.email)
-
 			var id []uint8
 			rows, err := database.GetUsers(details.email)
 			if err != nil {
@@ -103,7 +99,13 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			base.RawQuery = params.Encode()
 			log.Println(base)
 
-			sendgrid.SendEmail(details.email, details.firstName, "", base.String(), "delete")
+			// Sends deletion confirmation email
+			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				fmt.Println("Sendgrid Response:", resp.StatusCode)
+			}
 
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")

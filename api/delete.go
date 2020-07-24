@@ -30,17 +30,13 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		// http.Redirect(w, r, "/delete", http.StatusSeeOther)
 
 		// Get parameters from URL
 		keys, ok := r.URL.Query()["id"]
 		if !ok || len(keys[0]) < 1 {
 			http.Redirect(w, r, "/delete", http.StatusSeeOther)
 		}
-
 		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
-
-		// fmt.Fprintf(w, "Parameter IDs:%v\n", keys)
 
 		for _, v := range keys {
 			result, err := database.DeleteUser(v)
@@ -75,6 +71,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Base URL that will have encoded parameters appended to
 			base, err := url.Parse("https://notify.is/api/delete")
 			if err != nil {
+				log.Println(err)
 				return
 			}
 			// Query params
@@ -82,8 +79,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			// Loop through rows returned by DB query
 			for rows.Next() {
-				err := rows.Scan(&id)
-				if err != nil {
+				if err := rows.Scan(&id); err != nil {
 					log.Println(err)
 				}
 				// Convert DB IDs to strings, add as parameters to URL values
@@ -102,11 +98,10 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Sends deletion confirmation email
 			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			} else {
-				fmt.Println("Sendgrid Response:", resp.StatusCode)
+				log.Println("Sendgrid Response:", resp.StatusCode)
 			}
-
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}

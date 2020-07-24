@@ -54,17 +54,18 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				username:  r.FormValue("username"),
 			}
 
-			fmt.Fprintf(w, "First name = %s\n", details.firstName)
-			fmt.Fprintf(w, "Last name = %s\n", details.lastName)
-			fmt.Fprintf(w, "Email address = %s\n", details.email)
-			fmt.Fprintf(w, "Username = %s\n", details.username)
-
 			result, err := database.InsertUser(details.firstName, details.lastName, details.email, details.username)
 			if err != nil {
 				log.Printf("%v", err)
 			}
 
-			sendgrid.SendEmail(details.email, details.firstName, details.username, "", "signup")
+			// Sends signup email
+			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				fmt.Println("Sendgrid Response:", resp.StatusCode)
+			}
 
 			fmt.Fprintf(w, "\n%s", result)
 		} else {

@@ -9,6 +9,7 @@ export default function Layout({ children }) {
 
       <Head>
         <title>Notify.is</title>
+        <meta name="google-site-verification" content="RF2iO2zoAF3S7_0ZM3QojJKetvUediCtsp68DhKpD4w" />
         <meta name="author" content="Oliver Proud"/>
         <meta name="description" content="Notify.is - Get notified when a taken Instagram username becomes available."/>
         <meta name="keywords" content="instagram username unavailable, get instagram username, instagram username taken, get taken instagram username, get unavailable instagram username, get unavailable username, get taken username, instagram username taken, taken username, username unavailable"/>

@@ -7,6 +7,7 @@ import { signupHandler } from "../services/signup"
 import Router from "next/router"
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import Form from 'react-bootstrap/Form'
 
 export default function Signup() {
 
@@ -75,6 +76,21 @@ export default function Signup() {
             <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="username">Username</label>
           </div>
+
+          <Form>
+            <Form.Check
+              type="switch"
+              id="switch-instagram"
+              label="Instagram"
+            />
+            <Form.Check
+              type="switch"
+              id="switch-twitter"
+              label="Twitter"
+            />
+          <small id="switchHelp" className="form-text text-muted">Who should we check with?</small>
+          </Form>
+
 
           <div className="checkbox pt-3 mb-1">
             <label>

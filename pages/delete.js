@@ -135,13 +135,6 @@ export default function Delete() {
         .display-4 {
           font-weight: 700;
         }
-
-        .terms {
-          text-decoration: underline;
-        }
-        .terms:hover {
-          text-decoration: none;
-        }
             `}
       </style>
 

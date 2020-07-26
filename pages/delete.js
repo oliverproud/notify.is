@@ -1,44 +1,37 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Layout from '../components/layout'
-import IntroHeader from '../components/introHeader'
+import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '../components/layout';
+import { deleteHandler } from "../services/delete";
+import Router from "next/router";
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
-import React, { useState } from "react"
-import { deleteHandler } from "../services/delete"
-import Router from "next/router"
-import Button from 'react-bootstrap/Button'
-import Spinner from 'react-bootstrap/Spinner'
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-export default function About() {
+const validationSchema= Yup.object({
+          firstName: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required"),
+          lastName: Yup.string()
+            .max(20, "Must be 20 characters or less")
+            .required("Required"),
+          email: Yup.string()
+            .email("Invalid email addresss`")
+            .required("Required"),
+          acceptTerms: Yup.boolean()
+            .required("Required")
+            .oneOf([true], "You must accept the terms and conditions."),
+        })
 
-  const initialValues = {
-    firstname: "",
-    lastname: "",
-    email: "",
-  }
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  acceptTerms: false, // added for our checkbox
+}
 
-  const [inputs, setInputs] = useState(initialValues);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-    const res = await deleteHandler(inputs);
-    if (res) {
-      setError(res)
-      setLoading(false)
-    };
-  };
-
-  const handleInputChange = (e) => {
-    e.persist();
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    });
-  };
-
+export default function Delete() {
 
   return (
     <Layout>
@@ -48,49 +41,110 @@ export default function About() {
       </Head>
 
       <div className="container-center">
-        <form className="form" onSubmit={handleSubmit}>
-        <h1 className="display-4">Delete my info</h1>
-        <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
+
+        <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const res = await deleteHandler(values);
+          setSubmitting(false);
+        }}
+      >
+      {({ touched, errors, isSubmitting }) => (
+        <Form className="form">
+          <h1 className="display-4">Delete my info</h1>
+          <small className="text-muted">Note: we will be unable to provide our services if you delete your information.</small>
           <div className="form-row mt-4">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
+              <Field
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First name"
+                className={`form-control ${touched.firstName && errors.firstName ? "is-invalid" : null}`} />
               <label htmlFor="firstname">First name</label>
+              <ErrorMessage
+                component="div"
+                name="firstName"
+                className="invalid-feedback"
+              />
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
+              <Field
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Last name"
+                className={`form-control ${touched.lastName && errors.lastName ? "is-invalid" : null}`} />
               <label htmlFor="lastname">Last name</label>
+              <ErrorMessage
+                component="div"
+                name="lastName"
+                className="invalid-feedback"
+              />
             </div>
           </div>
 
           <div className="form-label-group">
-            <input type="email" id="email" name="email" onChange={handleInputChange} value={inputs.email} className="form-control" placeholder="Email address" required />
+            <Field
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email address"
+              className={`form-control ${touched.email && errors.email ? "is-invalid" : null}`} />
+            <ErrorMessage
+              component="div"
+              name="email"
+              className="invalid-feedback"
+            />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             <label htmlFor="email">Email address</label>
           </div>
 
-          <div className="checkbox pt-3 mb-1">
-            <label>
-              <input type="checkbox" value="agree" required/> By checking this box you are confirming you want to delete your data.
-            </label>
+
+          <div className="form-group form-check pt-3 mb-1">
+            <Field
+             type="checkbox"
+             name="acceptTerms"
+             className={`form-check-input ${touched.acceptTerms && errors.acceptTerms ? "is-invalid" : null}`} />
+             <label htmlFor="acceptTerms" className="form-check-label">By checking this box you agree to our:</label>
+             <ErrorMessage
+               component="div"
+               name="acceptTerms"
+               className="invalid-feedback"
+             />
           </div>
+          <span className="grey termslabel">
+            <Link href="/tos"><a className="terms" target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a className="terms" target="_blank">Privacy Policy</a></Link>
+          </span>
           <Button
             className="btn-lg btn-primary btn-block mt-4"
             variant="primary"
-            disabled={isLoading}
+            disabled={isSubmitting}
             type="submit"
             >
-            {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
-            {isLoading && <span> Submitting...</span>}
-            {!isLoading && <span>Delete</span>}
+            {isSubmitting && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
+            {isSubmitting && <span> Submitting...</span>}
+            {!isSubmitting && <span>Delete</span>}
           </Button>
           <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
-        </form>
+        </Form>
+      )}
+        </Formik>
       </div>
+
 
       <style jsx>{`
         .display-4 {
           font-weight: 700;
+        }
+
+        .terms {
+          text-decoration: underline;
+        }
+        .terms:hover {
+          text-decoration: none;
         }
             `}
       </style>

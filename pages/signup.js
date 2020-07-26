@@ -26,6 +26,8 @@ const validationSchema= Yup.object({
           acceptTerms: Yup.boolean()
             .required("Required")
             .oneOf([true], "You must accept the terms and conditions."),
+          switchGroup: Yup.array()
+          .required("At least one option must be selected")
         })
 
 const initialValues = {
@@ -34,6 +36,7 @@ const initialValues = {
   email: "",
   username: "",
   acceptTerms: false, // added for our checkbox
+  switchGroup: []
 }
 
 export default function Signup() {
@@ -126,12 +129,30 @@ export default function Signup() {
 
           <div>
             <div className="custom-control custom-switch">
-              <input type="checkbox" className="custom-control-input" id="instagram-switch" />
+              <Field
+                type="checkbox"
+                name="switchGroup"
+                id="instagram-switch"
+                value="instagram"
+                className={`custom-control-input ${touched.switchGroup && errors.switchGroup ? "is-invalid" : null}`}
+              />
               <label className="custom-control-label" htmlFor="instagram-switch">Instagram</label>
             </div>
+
             <div className="custom-control custom-switch">
-              <input type="checkbox" className="custom-control-input" id="twitter-switch" />
+              <Field
+                type="checkbox"
+                name="switchGroup"
+                id="twitter-switch"
+                value="twitter"
+                className={`custom-control-input ${touched.switchGroup && errors.switchGroup ? "is-invalid" : null}`}
+              />
               <label className="custom-control-label" htmlFor="twitter-switch">Twitter</label>
+              <ErrorMessage
+                component="div"
+                name="switchGroup"
+                className="invalid-feedback"
+              />
             </div>
             <small id="usernameHelp" className="form-text text-muted">The service(s) we should check with.</small>
           </div>

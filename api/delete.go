@@ -111,6 +111,13 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 }
 
 // func main() {
-// 	http.HandleFunc("/api/delete/", DeleteForm)
-// 	http.ListenAndServe(":8080", nil)
+//
+// Setenv here
+//
+// 	log.Print("Starting server...")
+//
+// 	http.HandleFunc("/api/delete", DeleteForm)
+//
+// 	log.Printf("Listening on port 8080")
+// 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "8080"), nil))
 // }

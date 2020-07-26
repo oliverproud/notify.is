@@ -48,8 +48,8 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := SignupDetails{
-				firstName: r.FormValue("firstname"),
-				lastName:  r.FormValue("lastname"),
+				firstName: r.FormValue("firstName"),
+				lastName:  r.FormValue("lastName"),
 				email:     r.FormValue("email"),
 				username:  r.FormValue("username"),
 			}
@@ -74,3 +74,15 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
 }
+
+// func main() {
+//
+// Setenv here
+//
+// 	log.Print("Starting server...")
+//
+// 	http.HandleFunc("/api/signup", SignupForm)
+//
+// 	log.Printf("Listening on port ***REMOVED***")
+// 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "***REMOVED***"), nil))
+// }

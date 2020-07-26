@@ -57,8 +57,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := DeletionDetails{
-				firstName: r.FormValue("firstname"),
-				lastName:  r.FormValue("lastname"),
+				firstName: r.FormValue("firstName"),
+				lastName:  r.FormValue("lastName"),
 				email:     r.FormValue("email"),
 			}
 

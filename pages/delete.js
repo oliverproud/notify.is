@@ -102,7 +102,6 @@ export default function Delete() {
             <label htmlFor="email">Email address</label>
           </div>
 
-
           <div className="form-group form-check pt-3 mb-1">
             <Field
              type="checkbox"

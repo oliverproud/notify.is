@@ -1,44 +1,42 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Layout from '../components/layout'
+import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '../components/layout';
+import { signupHandler } from "../services/signup";
+import Router from "next/router";
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
-import React, { useState } from "react"
-import { signupHandler } from "../services/signup"
-import Router from "next/router"
-import Button from 'react-bootstrap/Button'
-import Spinner from 'react-bootstrap/Spinner'
-import Form from 'react-bootstrap/Form'
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const validationSchema= Yup.object({
+          firstName: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required"),
+          lastName: Yup.string()
+            .max(20, "Must be 20 characters or less")
+            .required("Required"),
+          email: Yup.string()
+            .email("Invalid email addresss`")
+            .required("Required"),
+          username: Yup.string()
+            .max(29, "Must be 29 characters or less")
+            .matches(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/, 'Must contain only letters, numbers, periods, and underscores')
+            .required("Required"),
+          acceptTerms: Yup.boolean()
+            .required("Required")
+            .oneOf([true], "You must accept the terms and conditions."),
+        })
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  username: "",
+  acceptTerms: false, // added for our checkbox
+}
 
 export default function Signup() {
-
-  const initialValues = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: ""
-  }
-
-  const [inputs, setInputs] = useState(initialValues);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-    const res = await signupHandler(inputs);
-    if (res) {
-      setError(res)
-      setLoading(false)
-    };
-  };
-
-  const handleInputChange = (e) => {
-    e.persist();
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   return (
     <Layout>
@@ -49,53 +47,106 @@ export default function Signup() {
 
       <div className="container-center">
 
-        {error ? <p>Error: {error}</p> : null}
-
-        <form className="form" onSubmit={handleSubmit}>
+        <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const res = await signupHandler(values);
+          setSubmitting(false);
+        }}
+      >
+      {({ touched, errors, isSubmitting }) => (
+        <Form className="form">
           <h1 className="display-4 pb-3">Get notified</h1>
           <div className="form-row">
             <div className="form-label-group col">
-              <input type="text" id="firstname" name="firstname" onChange={handleInputChange} value={inputs.firstname} className="form-control" placeholder="First name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
+              <Field
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First name"
+                className={`form-control ${touched.firstName && errors.firstName ? "is-invalid" : null}`} />
               <label htmlFor="firstname">First name</label>
+              <ErrorMessage
+                component="div"
+                name="firstName"
+                className="invalid-feedback"
+              />
             </div>
 
             <div className="form-label-group col">
-              <input type="text" id="lastname" name="lastname" onChange={handleInputChange} value={inputs.lastname} className="form-control" placeholder="Last name" required pattern="[A-Za-z0-9]{1,50}" title="No spaces, numbers or special characters" />
+              <Field
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Last name"
+                className={`form-control ${touched.lastName && errors.lastName ? "is-invalid" : null}`} />
               <label htmlFor="lastname">Last name</label>
+              <ErrorMessage
+                component="div"
+                name="lastName"
+                className="invalid-feedback"
+              />
             </div>
           </div>
 
           <div className="form-label-group">
-            <input type="email" id="email" name="email" onChange={handleInputChange} value={inputs.email} className="form-control" placeholder="Email address" required />
+            <Field
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email address"
+              className={`form-control ${touched.email && errors.email ? "is-invalid" : null}`} />
+            <ErrorMessage
+              component="div"
+              name="email"
+              className="invalid-feedback"
+            />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             <label htmlFor="email">Email address</label>
           </div>
 
-          <div className="form-label-group" >
-            <input type="text" id="username" name="username" onChange={handleInputChange} value={inputs.username} autoCorrect="off" autoCapitalize="none" className="form-control" placeholder="Username" required pattern="^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$" />
+          <div className="form-label-group">
+            <Field
+              type="text"
+              name="username"
+              id="username"
+              autoCorrect="off"
+              autoCapitalize="none"
+              placeholder="Username"
+              className={`form-control ${touched.username && errors.username ? "is-invalid" : null}`} />
+            <ErrorMessage
+              component="div"
+              name="username"
+              className="invalid-feedback"
+            />
             <small id="usernameHelp" className="form-text text-muted">The unavailable username you want.</small>
             <label htmlFor="username">Username</label>
           </div>
 
-          <Form>
-            <Form.Check
-              type="switch"
-              id="switch-instagram"
-              label="Instagram"
-            />
-            <Form.Check
-              type="switch"
-              id="switch-twitter"
-              label="Twitter"
-            />
-          <small id="switchHelp" className="form-text text-muted">Who should we check with?</small>
-          </Form>
+          <div>
+            <div className="custom-control custom-switch">
+              <input type="checkbox" className="custom-control-input" id="instagram-switch" />
+              <label className="custom-control-label" htmlFor="instagram-switch">Instagram</label>
+            </div>
+            <div className="custom-control custom-switch">
+              <input type="checkbox" className="custom-control-input" id="twitter-switch" />
+              <label className="custom-control-label" htmlFor="twitter-switch">Twitter</label>
+            </div>
+            <small id="usernameHelp" className="form-text text-muted">The service(s) we should check with.</small>
+          </div>
 
-
-          <div className="checkbox pt-3 mb-1">
-            <label>
-              <input type="checkbox" value="agree" required/> By checking this box you agree to our:
-            </label>
+          <div className="form-group form-check pt-3 mb-1">
+            <Field
+             type="checkbox"
+             name="acceptTerms"
+             className={`form-check-input ${touched.acceptTerms && errors.acceptTerms ? "is-invalid" : null}`} />
+             <label htmlFor="acceptTerms" className="form-check-label">By checking this box you agree to our:</label>
+             <ErrorMessage
+               component="div"
+               name="acceptTerms"
+               className="invalid-feedback"
+             />
           </div>
           <span className="grey termslabel">
             <Link href="/tos"><a className="terms" target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a className="terms" target="_blank">Privacy Policy</a></Link>
@@ -103,16 +154,19 @@ export default function Signup() {
           <Button
             className="btn-lg btn-primary btn-block mt-4"
             variant="primary"
-            disabled={isLoading}
+            disabled={isSubmitting}
             type="submit"
             >
-            {isLoading && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
-            {isLoading && <span> Submitting...</span>}
-            {!isLoading && <span>Sign up</span>}
+            {isSubmitting && <Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true"/>}
+            {isSubmitting && <span> Submitting...</span>}
+            {!isSubmitting && <span>Sign up</span>}
           </Button>
           <p className="mt-4 mb-3 text-muted text-center">&copy; Notify.is 2020</p>
-        </form>
+        </Form>
+      )}
+        </Formik>
       </div>
+
 
       <style jsx>{`
         .display-4 {

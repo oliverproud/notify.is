@@ -21,7 +21,7 @@ const validationSchema= Yup.object({
             .required("Required"),
           acceptTerms: Yup.boolean()
             .required("Required")
-            .oneOf([true], "You must accept the terms and conditions."),
+            .oneOf([true], "You must confirm this action."),
         })
 
 const initialValues = {
@@ -102,21 +102,18 @@ export default function Delete() {
             <label htmlFor="email">Email address</label>
           </div>
 
-          <div className="form-group form-check pt-3 mb-1">
+          <div className="form-group form-check pt-2 mb-1">
             <Field
              type="checkbox"
              name="acceptTerms"
              className={`form-check-input ${touched.acceptTerms && errors.acceptTerms ? "is-invalid" : null}`} />
-             <label htmlFor="acceptTerms" className="form-check-label">By checking this box you agree to our:</label>
+           <label htmlFor="acceptTerms" className="form-check-label">I confirm I want to delete my data</label>
              <ErrorMessage
                component="div"
                name="acceptTerms"
                className="invalid-feedback"
              />
           </div>
-          <span className="grey termslabel">
-            <Link href="/tos"><a className="terms" target="_blank">Terms of Use</a></Link> and <Link href="/privacy"><a className="terms" target="_blank">Privacy Policy</a></Link>
-          </span>
           <Button
             className="btn-lg btn-primary btn-block mt-4"
             variant="primary"

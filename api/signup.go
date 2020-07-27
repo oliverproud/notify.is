@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"notify.is/database"
 	"notify.is/sendgrid"
@@ -16,6 +17,7 @@ type SignupDetails struct {
 	lastName  string
 	email     string
 	username  string
+	service   string
 }
 
 const (
@@ -48,15 +50,38 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := SignupDetails{
-				firstName: r.FormValue("firstname"),
-				lastName:  r.FormValue("lastname"),
+				firstName: r.FormValue("firstName"),
+				lastName:  r.FormValue("lastName"),
 				email:     r.FormValue("email"),
 				username:  r.FormValue("username"),
+				service:   r.FormValue("switchGroup"),
 			}
 
-			result, err := database.InsertUser(details.firstName, details.lastName, details.email, details.username)
-			if err != nil {
-				log.Printf("%v", err)
+			services := strings.Split(details.service, ",")
+
+			var result string
+			var err error
+
+			if len(services) > 1 {
+				log.Println("Inserting both services")
+				result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, true)
+				if err != nil {
+					log.Printf("%v", err)
+				}
+			} else {
+				if services[0] == "instagram" {
+					log.Println("Instagram was selected, inserting Instagram")
+					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, false)
+					if err != nil {
+						log.Printf("%v", err)
+					}
+				} else {
+					log.Println("Twitter was selected, inserting Twitter")
+					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, false, true)
+					if err != nil {
+						log.Printf("%v", err)
+					}
+				}
 			}
 
 			// Sends signup email
@@ -74,3 +99,15 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Only GET and POST methods are supported.")
 	}
 }
+
+// func main() {
+//
+// 	// Setenv here
+//
+// 	log.Print("Starting server...")
+//
+// 	http.HandleFunc("/api/signup", SignupForm)
+//
+// 	log.Printf("Listening on port ***REMOVED***")
+// 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "***REMOVED***"), nil))
+// }

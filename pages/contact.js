@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import IntroHeader from '../components/introHeader'
 
-export default function About() {
+export default function Contact() {
   return (
     <Layout>
 

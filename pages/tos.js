@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import IntroHeader from '../components/introHeader'
 
-export default function Privacy() {
+export default function TOS() {
   return (
     <Layout>
 

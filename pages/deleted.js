@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/layout'
 import Button from 'react-bootstrap/Button'
 
-export default function ConfirmDelete() {
+export default function DeleteConfirmed() {
   return (
     <Layout>
 

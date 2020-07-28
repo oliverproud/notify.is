@@ -7,7 +7,9 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
+	"github.com/getsentry/sentry-go"
 	"notify.is/database"
 	"notify.is/sendgrid"
 	//Postgres driver
@@ -40,6 +42,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 			if err := r.ParseForm(); err != nil {
 				fmt.Fprintf(w, "ParseForm() err: %v", err)
+				sentry.CaptureException(err)
 				return
 			}
 
@@ -60,6 +63,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				log.Println("Inserting both services")
 				result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, true)
 				if err != nil {
+					sentry.CaptureException(err)
 					log.Printf("%v", err)
 				}
 			} else {
@@ -67,12 +71,14 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 					log.Println("Instagram was selected, inserting Instagram")
 					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, false)
 					if err != nil {
+						sentry.CaptureException(err)
 						log.Printf("%v", err)
 					}
 				} else {
 					log.Println("Twitter was selected, inserting Twitter")
 					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, false, true)
 					if err != nil {
+						sentry.CaptureException(err)
 						log.Printf("%v", err)
 					}
 				}
@@ -82,6 +88,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			// Sends signup email
 			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
 			if err != nil {
+				sentry.CaptureException(err)
 				log.Println(err)
 			}
 
@@ -101,6 +108,16 @@ func init() {
 
 	// Setenv here
 
+	// To initialize Sentry's handler, you need to initialize Sentry itself beforehand
+	if err := sentry.Init(sentry.ClientOptions{
+		Dsn: os.Getenv("SENTRY_DSN"),
+	}); err != nil {
+		fmt.Printf("Sentry initialization failed: %v\n", err)
+	}
+
+	// Flush buffered events before the program terminates.
+	defer sentry.Flush(2 * time.Second)
+
 	const (
 		port   = 5432
 		user   = "postgres"
@@ -115,11 +132,12 @@ func init() {
 	var err error
 	db, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
+		sentry.CaptureException(err)
 		fmt.Printf("%v\n", err)
-		fmt.Println("Returning...")
 		return
 	}
 	if err = db.Ping(); err != nil {
+		sentry.CaptureException(err)
 		log.Fatal(err)
 	}
 }

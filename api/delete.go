@@ -89,15 +89,15 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			// Create final URL using base URL and encoded parameters
 			base.RawQuery = params.Encode()
-			log.Println(base)
 
 			// Sends deletion confirmation email
 			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
 			if err != nil {
 				log.Println(err)
-			} else {
-				log.Println("Sendgrid Response:", resp.StatusCode)
 			}
+
+			log.Println("Sendgrid Response:", resp.StatusCode)
+
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}

@@ -5,7 +5,7 @@ import (
 )
 
 // GetUsers will return a list of database IDs relating to a user's email address
-func GetUsers(email string) (*sql.Rows, error) {
+func GetUsers(db *sql.DB, email string) (*sql.Rows, error) {
 
 	sqlStatement := `
     SELECT id FROM users

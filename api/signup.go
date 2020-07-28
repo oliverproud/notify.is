@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -26,15 +27,30 @@ const (
 	dbname = "notify"
 )
 
+var db *sql.DB
+
+func init() {
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), 5432, "postgres", os.Getenv("DB_PASSWORD"), "notify")
+
+	var err error
+	db, err = sql.Open("postgres", psqlInfo)
+	if err != nil {
+		fmt.Printf("%v", err)
+		fmt.Println("Returning...")
+		return
+	}
+	if err = db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+}
+
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/api/signup" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
-
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
-	database.InitDB(psqlInfo)
 
 	switch r.Method {
 	case "GET":

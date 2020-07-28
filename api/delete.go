@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 
 	"notify.is/database"
 	"notify.is/sendgrid"
@@ -24,9 +23,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
-
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
-	database.InitDB(psqlInfo)
 
 	switch r.Method {
 	case "GET":

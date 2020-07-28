@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,6 +10,8 @@ import (
 
 	"notify.is/database"
 	"notify.is/sendgrid"
+	//Postgres driver
+	_ "github.com/lib/pq"
 )
 
 // SignupDetails parses the form values
@@ -20,21 +23,12 @@ type SignupDetails struct {
 	service   string
 }
 
-const (
-	port   = 5432
-	user   = "postgres"
-	dbname = "notify"
-)
-
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/api/signup" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
-
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
-	database.InitDB(psqlInfo)
 
 	switch r.Method {
 	case "GET":
@@ -64,33 +58,34 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			if len(services) > 1 {
 				log.Println("Inserting both services")
-				result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, true)
+				result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, true)
 				if err != nil {
 					log.Printf("%v", err)
 				}
 			} else {
 				if services[0] == "instagram" {
 					log.Println("Instagram was selected, inserting Instagram")
-					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, false)
+					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, false)
 					if err != nil {
 						log.Printf("%v", err)
 					}
 				} else {
 					log.Println("Twitter was selected, inserting Twitter")
-					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, false, true)
+					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, false, true)
 					if err != nil {
 						log.Printf("%v", err)
 					}
 				}
 			}
+			log.Println(result)
 
 			// Sends signup email
 			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
 			if err != nil {
 				log.Println(err)
-			} else {
-				log.Println("Sendgrid Response:", resp.StatusCode)
 			}
+
+			log.Println("Sendgrid Response:", resp.StatusCode)
 			fmt.Fprintf(w, "\n%s", result)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records inserted.")
@@ -100,9 +95,36 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+var db *sql.DB
+
+func init() {
+
+	// Setenv here
+
+	const (
+		port   = 5432
+		user   = "postgres"
+		dbName = "notify"
+	)
+
+	var host = os.Getenv("DB_HOST")
+	var password = os.Getenv("DB_PASSWORD")
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, user, password, dbName)
+
+	var err error
+	db, err = sql.Open("postgres", psqlInfo)
+	if err != nil {
+		fmt.Printf("%v\n", err)
+		fmt.Println("Returning...")
+		return
+	}
+	if err = db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+}
+
 // func main() {
-//
-// 	// Setenv here
 //
 // 	log.Print("Starting server...")
 //

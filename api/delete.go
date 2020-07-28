@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 
 	"notify.is/database"
 	"notify.is/sendgrid"
@@ -25,9 +24,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), port, user, os.Getenv("DB_PASSWORD"), dbname)
-	database.InitDB(psqlInfo)
-
 	switch r.Method {
 	case "GET":
 
@@ -39,11 +35,11 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
 
 		for _, v := range keys {
-			result, err := database.DeleteUser(v)
+			result, err := database.DeleteUser(db, v)
 			if err != nil {
 				log.Println(err)
 			}
-			log.Printf("%v\n", result)
+			log.Println(result)
 		}
 
 	case "POST":
@@ -63,7 +59,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			var id []uint8
-			rows, err := database.GetUsers(details.email)
+			rows, err := database.GetUsers(db, details.email)
 			if err != nil {
 				log.Println(err)
 			}
@@ -93,15 +89,15 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			// Create final URL using base URL and encoded parameters
 			base.RawQuery = params.Encode()
-			log.Println(base)
 
 			// Sends deletion confirmation email
 			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
 			if err != nil {
 				log.Println(err)
-			} else {
-				log.Println("Sendgrid Response:", resp.StatusCode)
 			}
+
+			log.Println("Sendgrid Response:", resp.StatusCode)
+
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}

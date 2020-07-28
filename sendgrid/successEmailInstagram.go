@@ -44,6 +44,6 @@ func SuccessEmailInstagram(email, name, username string) (*rest.Response, error)
 	case 202:
 		return response, nil
 	default:
-		return nil, fmt.Errorf("Sendgrid encountered an error: %d", response.StatusCode)
+		return nil, fmt.Errorf("SendGrid encountered an error: %d", response.StatusCode)
 	}
 }

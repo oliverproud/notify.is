@@ -1,9 +1,12 @@
 package database
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 // DeleteUser removes a user from the database table 'users'
-func DeleteUser(id string) (string, error) {
+func DeleteUser(db *sql.DB, id string) (string, error) {
 
 	sqlStatement := `
 	DELETE FROM users

@@ -1,9 +1,12 @@
 package database
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 //InsertUser inserts a new user into the database table 'users'
-func InsertUser(firstName, lastName, email, username string, instagram, twitter bool) (string, error) {
+func InsertUser(db *sql.DB, firstName, lastName, email, username string, instagram, twitter bool) (string, error) {
 
 	sqlStatement := `
   INSERT INTO users (first_name, last_name, email, username, instagram, twitter)

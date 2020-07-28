@@ -10,6 +10,8 @@ import (
 
 	"notify.is/database"
 	"notify.is/sendgrid"
+	//Postgres driver
+	_ "github.com/lib/pq"
 )
 
 // SignupDetails parses the form values
@@ -113,7 +115,7 @@ func init() {
 	var err error
 	db, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
-		fmt.Printf("%v", err)
+		fmt.Printf("%v\n", err)
 		fmt.Println("Returning...")
 		return
 	}

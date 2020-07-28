@@ -9,19 +9,14 @@ import (
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
-const (
-	fromName    = "Notify Support"
-	fromAddress = "support@notify.is"
-)
-
-// SignupEmail sends a signup confirmation email to the user
-func SignupEmail(email, name, username string) (*rest.Response, error) {
+// SuccessEmailInstagram sends a success email to a user
+func SuccessEmailInstagram(email, name, username string) (*rest.Response, error) {
 	m := mail.NewV3Mail()
 
 	e := mail.NewEmail(fromName, fromAddress)
 	m.SetFrom(e)
 
-	m.SetTemplateID("d-0449de6d2d8c431a9adb9f079bce3cc7")
+	m.SetTemplateID("d-8d0bb30d08564ee39fe261040db6f9c3")
 
 	p := mail.NewPersonalization()
 	tos := []*mail.Email{

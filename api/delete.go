@@ -35,11 +35,11 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
 
 		for _, v := range keys {
-			result, err := database.DeleteUser(v)
+			result, err := database.DeleteUser(db, v)
 			if err != nil {
 				log.Println(err)
 			}
-			log.Printf("%v\n", result)
+			log.Println(result)
 		}
 
 	case "POST":
@@ -59,7 +59,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			var id []uint8
-			rows, err := database.GetUsers(details.email)
+			rows, err := database.GetUsers(db, details.email)
 			if err != nil {
 				log.Println(err)
 			}

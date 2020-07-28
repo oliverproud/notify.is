@@ -21,30 +21,6 @@ type SignupDetails struct {
 	service   string
 }
 
-const (
-	port   = 5432
-	user   = "postgres"
-	dbname = "notify"
-)
-
-var db *sql.DB
-
-func init() {
-
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), 5432, "postgres", os.Getenv("DB_PASSWORD"), "notify")
-
-	var err error
-	db, err = sql.Open("postgres", psqlInfo)
-	if err != nil {
-		fmt.Printf("%v", err)
-		fmt.Println("Returning...")
-		return
-	}
-	if err = db.Ping(); err != nil {
-		log.Fatal(err)
-	}
-}
-
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/api/signup" {
@@ -80,25 +56,26 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			if len(services) > 1 {
 				log.Println("Inserting both services")
-				result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, true)
+				result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, true)
 				if err != nil {
 					log.Printf("%v", err)
 				}
 			} else {
 				if services[0] == "instagram" {
 					log.Println("Instagram was selected, inserting Instagram")
-					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, true, false)
+					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, false)
 					if err != nil {
 						log.Printf("%v", err)
 					}
 				} else {
 					log.Println("Twitter was selected, inserting Twitter")
-					result, err = database.InsertUser(details.firstName, details.lastName, details.email, details.username, false, true)
+					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, false, true)
 					if err != nil {
 						log.Printf("%v", err)
 					}
 				}
 			}
+			log.Println(result)
 
 			// Sends signup email
 			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
@@ -116,9 +93,27 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+var db *sql.DB
+
+func init() {
+
+	// Setenv here
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", os.Getenv("DB_HOST"), 5432, "postgres", os.Getenv("DB_PASSWORD"), "notify")
+
+	var err error
+	db, err = sql.Open("postgres", psqlInfo)
+	if err != nil {
+		fmt.Printf("%v", err)
+		fmt.Println("Returning...")
+		return
+	}
+	if err = db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+}
+
 // func main() {
-//
-// 	// Setenv here
 //
 // 	log.Print("Starting server...")
 //

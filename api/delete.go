@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/getsentry/sentry-go"
 	"notify.is/database"
 	"notify.is/sendgrid"
 )
@@ -37,6 +38,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		for _, v := range keys {
 			result, err := database.DeleteUser(db, v)
 			if err != nil {
+				sentry.CaptureException(err)
 				log.Println(err)
 			}
 			log.Println(result)
@@ -48,6 +50,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 			if err := r.ParseForm(); err != nil {
+				sentry.CaptureException(err)
 				fmt.Fprintf(w, "ParseForm() err: %v", err)
 				return
 			}
@@ -61,12 +64,14 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			var id []uint8
 			rows, err := database.GetUsers(db, details.email)
 			if err != nil {
+				sentry.CaptureException(err)
 				log.Println(err)
 			}
 
 			// Base URL that will have encoded parameters appended to
 			base, err := url.Parse("https://notify.is/api/delete")
 			if err != nil {
+				sentry.CaptureException(err)
 				log.Println(err)
 				return
 			}
@@ -76,6 +81,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Loop through rows returned by DB query
 			for rows.Next() {
 				if err := rows.Scan(&id); err != nil {
+					sentry.CaptureException(err)
 					log.Println(err)
 				}
 				// Convert DB IDs to strings, add as parameters to URL values
@@ -93,6 +99,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Sends deletion confirmation email
 			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
 			if err != nil {
+				sentry.CaptureException(err)
 				log.Println(err)
 			}
 
@@ -108,7 +115,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 // func main() {
 //
-// Setenv here
+// 	// Setenv here
 //
 // 	log.Print("Starting server...")
 //

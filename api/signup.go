@@ -32,6 +32,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var err error
+	var result string
+	var instagram, twitter, github bool
+
 	switch r.Method {
 	case "GET":
 		http.Redirect(w, r, "/signup", http.StatusSeeOther)
@@ -54,34 +58,25 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				service:   r.FormValue("switchGroup"),
 			}
 
+			// switch group is receieved as a concatenated string
 			services := strings.Split(details.service, ",")
 
-			var result string
-			var err error
-
-			if len(services) > 1 {
-				log.Println("Inserting both services")
-				result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, true)
-				if err != nil {
-					sentry.CaptureException(err)
-					log.Printf("%v", err)
-				}
-			} else {
-				if services[0] == "instagram" {
-					log.Println("Instagram was selected, inserting Instagram")
-					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, false)
-					if err != nil {
-						sentry.CaptureException(err)
-						log.Printf("%v", err)
-					}
+			// Update boolean value relevant to services selected
+			for i := range services {
+				if services[i] == "instagram" {
+					instagram = true
+				} else if services[i] == "twitter" {
+					twitter = true
 				} else {
-					log.Println("Twitter was selected, inserting Twitter")
-					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, false, true)
-					if err != nil {
-						sentry.CaptureException(err)
-						log.Printf("%v", err)
-					}
+					github = true
 				}
+			}
+
+			log.Println("Inserting into DB")
+			result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, instagram, twitter, github)
+			if err != nil {
+				sentry.CaptureException(err)
+				log.Printf("%v", err)
 			}
 			log.Println(result)
 
@@ -129,8 +124,8 @@ func init() {
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, user, password, dbName)
 
-	var err error
-	db, err = sql.Open("postgres", psqlInfo)
+	// Open database connection
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		sentry.CaptureException(err)
 		fmt.Printf("%v\n", err)

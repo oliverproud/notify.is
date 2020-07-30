@@ -18,17 +18,16 @@ export default function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-nav-icon"/>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Link href="/about"><a className="p-2">About</a></Link>
-          <Link href="/contact"><a className="p-2">Contact us</a></Link>
+          <Link href="/about"><a className="pt-2 pb-2 pr-2">About</a></Link>
+          <Link href="/contact"><a className="pt-2 pb-2 pl-lg-2 pr-2">Contact us</a></Link>
         </Nav>
-        <Link href="/signup"><a className="btn nav-btn p-2 mt-3 mt-lg-0">Get notified</a></Link>
+        <Link href="/signup"><a className="btn nav-btn pt-2 pb-2 mt-3 ml-lg-2 mt-lg-0">Get notified</a></Link>
       </Navbar.Collapse>
 
       <style jsx>{`
         .nav-btn {
           border-color: #333;
           color: inherit;
-          margin-left: .5rem!important;
         }
 
         .nav-btn:hover {

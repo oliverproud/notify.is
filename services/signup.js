@@ -1,9 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
-
-import Router from "next/router";
-
-import { catchAxiosError } from "./error";
 import { post } from "./rest";
+import Router from "next/router";
+import { catchAxiosError } from "./error";
+import axios, { AxiosRequestConfig } from "axios";
 
 export async function signupHandler(SignupInputs) {
   const data = new URLSearchParams(SignupInputs);

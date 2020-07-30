@@ -32,9 +32,9 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var instagram, twitter, github bool
-	var result string
 	var err error
+	var result string
+	var instagram, twitter, github bool
 
 	switch r.Method {
 	case "GET":
@@ -58,8 +58,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				service:   r.FormValue("switchGroup"),
 			}
 
+			// switch group is receieved as a concatenated string
 			services := strings.Split(details.service, ",")
 
+			// Update boolean value relevant to services selected
 			for i := range services {
 				if services[i] == "instagram" {
 					instagram = true
@@ -76,7 +78,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				sentry.CaptureException(err)
 				log.Printf("%v", err)
 			}
-
 			log.Println(result)
 
 			// Sends signup email
@@ -123,8 +124,8 @@ func init() {
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, user, password, dbName)
 
-	var err error
-	db, err = sql.Open("postgres", psqlInfo)
+	// Open database connection
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		sentry.CaptureException(err)
 		fmt.Printf("%v\n", err)

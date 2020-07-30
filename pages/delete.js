@@ -1,13 +1,13 @@
+import * as Yup from "yup";
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '../components/layout';
-import { deleteHandler } from "../services/delete";
 import Router from "next/router";
+import Layout from '../components/layout';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-
+import { deleteHandler } from "../services/delete";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+
 
 const validationSchema= Yup.object({
           firstName: Yup.string()

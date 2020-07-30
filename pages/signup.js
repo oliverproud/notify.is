@@ -1,13 +1,13 @@
+import * as Yup from "yup";
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '../components/layout';
-import { signupHandler } from "../services/signup";
 import Router from "next/router";
+import Layout from '../components/layout';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-
+import { signupHandler } from "../services/signup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+
 
 const validationSchema= Yup.object({
           firstName: Yup.string()
@@ -36,7 +36,7 @@ const initialValues = {
   email: "",
   username: "",
   acceptTerms: false, // added for our checkbox
-  switchGroup: []
+  switchGroup: [] // array for switches
 }
 
 export default function Signup() {

@@ -2,11 +2,10 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 //InsertUser inserts a new user into the database table 'users'
-func InsertUser(db *sql.DB, firstName, lastName, email, username string, instagram, twitter, github bool) (string, error) {
+func InsertUser(db *sql.DB, firstName, lastName, email, username string, instagram, twitter, github bool) error {
 
 	sqlStatement := `
   INSERT INTO users (first_name, last_name, email, username, instagram, twitter, github)
@@ -16,10 +15,8 @@ func InsertUser(db *sql.DB, firstName, lastName, email, username string, instagr
 	var id []uint8
 	err := db.QueryRow(sqlStatement, firstName, lastName, email, username, instagram, twitter, github).Scan(&id)
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	result := fmt.Sprintf("User inserted into DB")
-
-	return result, nil
+	return nil
 }

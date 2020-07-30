@@ -148,6 +148,17 @@ export default function Signup() {
                 className={`custom-control-input ${touched.switchGroup && errors.switchGroup ? "is-invalid" : null}`}
               />
               <label className="custom-control-label" htmlFor="twitter-switch">Twitter</label>
+            </div>
+
+            <div className="custom-control custom-switch">
+              <Field
+                type="checkbox"
+                name="switchGroup"
+                id="github-switch"
+                value="github"
+                className={`custom-control-input ${touched.switchGroup && errors.switchGroup ? "is-invalid" : null}`}
+              />
+            <label className="custom-control-label" htmlFor="github-switch">GitHub</label>
               <ErrorMessage
                 component="div"
                 name="switchGroup"

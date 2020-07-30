@@ -32,6 +32,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var instagram, twitter, github bool
+	var result string
+	var err error
+
 	switch r.Method {
 	case "GET":
 		http.Redirect(w, r, "/signup", http.StatusSeeOther)
@@ -56,33 +60,23 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			services := strings.Split(details.service, ",")
 
-			var result string
-			var err error
-
-			if len(services) > 1 {
-				log.Println("Inserting both services")
-				result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, true)
-				if err != nil {
-					sentry.CaptureException(err)
-					log.Printf("%v", err)
-				}
-			} else {
-				if services[0] == "instagram" {
-					log.Println("Instagram was selected, inserting Instagram")
-					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, true, false)
-					if err != nil {
-						sentry.CaptureException(err)
-						log.Printf("%v", err)
-					}
+			for i := range services {
+				if services[i] == "instagram" {
+					instagram = true
+				} else if services[i] == "twitter" {
+					twitter = true
 				} else {
-					log.Println("Twitter was selected, inserting Twitter")
-					result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, false, true)
-					if err != nil {
-						sentry.CaptureException(err)
-						log.Printf("%v", err)
-					}
+					github = true
 				}
 			}
+
+			log.Println("Inserting into DB")
+			result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, instagram, twitter, github)
+			if err != nil {
+				sentry.CaptureException(err)
+				log.Printf("%v", err)
+			}
+
 			log.Println(result)
 
 			// Sends signup email

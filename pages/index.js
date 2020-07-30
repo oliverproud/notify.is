@@ -9,7 +9,7 @@ export default function Home() {
       <div className="container-center">
         <div className="intro-header home px-4">
           <h1 className="display-4">Notify.is</h1>
-          <p>Get notified when your favourite username on <b>Instagram</b>, <b>Twitter</b> or <b>GitHub</b> becomes available.</p>
+          <p>Get notified when your favourite username on <b>Instagram</b>, <b>Twitter</b> and <b>GitHub</b> becomes available.</p>
           <Link href="/signup">
             <a>
               <Button className="signup-btn mt-2" size="lg">

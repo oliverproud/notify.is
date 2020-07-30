@@ -15,7 +15,7 @@ export default function About() {
         <IntroHeader>
           <h1 className="display-4">About</h1>
           <p className="p-about">We know how frustrating it is when your favourite username is taken, that's why we built Notify.is.</p>
-          <p className="p-about">We automatically check with Instagram, Twitter or GitHub for the availability of your username, when it's available we'll send you an email letting you know.</p>
+          <p className="p-about">We automatically check with <b>Instagram</b>, <b>Twitter</b> and <b>GitHub</b> for the availability of your username, when it's available we'll send you an email letting you know.</p>
           <p className="p-about">Sound good? Get notified with just your: </p>
           <ul>
             <li>Name</li>

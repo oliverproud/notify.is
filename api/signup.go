@@ -32,8 +32,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var err error
-	var result string
 	var instagram, twitter, github bool
 
 	switch r.Method {
@@ -73,12 +71,13 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println("Inserting into DB")
-			result, err = database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, instagram, twitter, github)
+			err := database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, instagram, twitter, github)
 			if err != nil {
 				sentry.CaptureException(err)
-				log.Printf("%v", err)
+				log.Println(err)
+				return
 			}
-			log.Println(result)
+			log.Println("User inserted into DB")
 
 			// Sends signup email
 			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
@@ -88,7 +87,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println("Sendgrid Response:", resp.StatusCode)
-			fmt.Fprintf(w, "\n%s", result)
+			fmt.Fprintf(w, "User inserted into DB")
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No records inserted.")
 		}
@@ -125,7 +124,8 @@ func init() {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, user, password, dbName)
 
 	// Open database connection
-	db, err := sql.Open("postgres", psqlInfo)
+	var err error
+	db, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
 		sentry.CaptureException(err)
 		fmt.Printf("%v\n", err)

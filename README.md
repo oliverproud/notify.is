@@ -5,3 +5,5 @@
 Notify.is is a service that notifies you when your favourite Instagram, Twitter or GitHub username becomes available.
 
 ![Notify.is Gcloud Deployment Repository](public/github-button.png)
+
+<img src="public/github-button.png" width="400">

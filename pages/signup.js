@@ -5,7 +5,6 @@ import Router from "next/router";
 import Layout from "../components/layout";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import { signupHandler } from "../services/signup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import Error from "../components/error";
@@ -43,6 +42,7 @@ const initialValues = {
 };
 
 export default function Signup() {
+  
   const [error, setError] = useState("");
 
   return (
@@ -58,12 +58,11 @@ export default function Signup() {
           onSubmit={async (values, { setSubmitting }) => {
             const data = new URLSearchParams(values);
             const res = await axios
-              .post("http://localhost:8080/api/signup", data)
+              .post("/api/signup", data)
               .then((response) => {
                 Router.push("/thanks");
               })
               .catch((error) => {
-                console.log("Here:", error.message);
                 setError(error.message);
               });
             setSubmitting(false);

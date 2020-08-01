@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -41,12 +41,13 @@ export default function Footer() {
         </li>
       </ul>
 
-      <style jsx>{`
+      <style jsx>
+        {`
           .footer-span {
-            margin-right: .5rem;
+            margin-right: 0.5rem;
           }
-            `}
+        `}
       </style>
     </footer>
-  )
+  );
 }

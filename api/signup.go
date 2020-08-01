@@ -1,4 +1,4 @@
-package handler
+package main
 
 import (
 	"database/sql"
@@ -27,6 +27,9 @@ type SignupDetails struct {
 
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	if r.URL.Path != "/api/signup" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
@@ -43,8 +46,9 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 			if err := r.ParseForm(); err != nil {
-				fmt.Fprintf(w, "ParseForm() err: %v", err)
 				sentry.CaptureException(err)
+				fmt.Fprintln(w, "ParseForm() err:", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
@@ -75,6 +79,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 			log.Println("User inserted into DB")
@@ -84,15 +89,18 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
-
 			log.Println("Sendgrid Response:", resp.StatusCode)
-			fmt.Fprintf(w, "User inserted into DB")
+
+			fmt.Fprintln(w, "User inserted into DB")
+			fmt.Fprintln(w, "Sendgrid Response:", resp.StatusCode)
 		} else {
-			fmt.Fprintf(w, "Request body is empty. No records inserted.")
+			fmt.Fprintln(w, "Request body is empty. No records inserted.")
 		}
 	default:
-		fmt.Fprintf(w, "Only GET and POST methods are supported.")
+		fmt.Fprintln(w, "Only GET and POST methods are supported.")
 	}
 }
 
@@ -101,6 +109,11 @@ var db *sql.DB
 func init() {
 
 	// Setenv here
+	os.Setenv("SENTRY_DSN", "https://621f3a99e17b4c118c8be6c2b60ea146@o414201.ingest.sentry.io/5370005")
+	os.Setenv("SERVER_PASSWORD", "haHbGJevQZtim3LUJ8GGsUR8RZbbosWuZMzpLAoAobgxA.XgDHKchVGbcGwReEyn")
+	os.Setenv("DB_PASSWORD", "qBNgmVnehKGnKDKyXj9Dch3pCDCkgrrJoL3k&KBAVdAKVJKpFpmEgNmAGPAtZjCy")
+	os.Setenv("DB_HOST", "35.225.65.23")
+	os.Setenv("PORT", "8080")
 
 	// To initialize Sentry's handler, you need to initialize Sentry itself beforehand
 	if err := sentry.Init(sentry.ClientOptions{
@@ -137,12 +150,12 @@ func init() {
 	}
 }
 
-// func main() {
-//
-// 	log.Print("Starting server...")
-//
-// 	http.HandleFunc("/api/signup", SignupForm)
-//
-// 	log.Printf("Listening on port 8080")
-// 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "8080"), nil))
-// }
+func main() {
+
+	log.Print("Starting server...")
+
+	http.HandleFunc("/api/signup", SignupForm)
+
+	log.Printf("Listening on port 8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}

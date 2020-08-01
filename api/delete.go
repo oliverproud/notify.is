@@ -1,4 +1,4 @@
-package handler
+package main
 
 import (
 	"fmt"
@@ -40,6 +40,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 			log.Println(result)
 		}
@@ -51,7 +53,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 			if err := r.ParseForm(); err != nil {
 				sentry.CaptureException(err)
-				fmt.Fprintf(w, "ParseForm() err: %v", err)
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
@@ -66,6 +69,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 
 			// Base URL that will have encoded parameters appended to
@@ -73,6 +78,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 			// Query params
@@ -83,7 +89,10 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				if err := rows.Scan(&id); err != nil {
 					sentry.CaptureException(err)
 					log.Println(err)
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
 				}
+
 				// Convert DB IDs to strings, add as parameters to URL values
 				params.Add("id", string(id))
 			}
@@ -101,10 +110,13 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
-
 			log.Println("Sendgrid Response:", resp.StatusCode)
 
+			fmt.Fprintln(w, "User inserted into DB")
+			fmt.Fprintln(w, "Sendgrid Response:", resp.StatusCode)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}

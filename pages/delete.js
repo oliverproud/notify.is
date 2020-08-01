@@ -5,8 +5,10 @@ import Router from "next/router";
 import Layout from "../components/layout";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import { deleteHandler } from "../services/delete";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useState } from "react";
+import Error from "../components/error";
+import axios from "axios";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -29,6 +31,9 @@ const initialValues = {
 };
 
 export default function Delete() {
+
+  const [error, setError] = useState("");
+
   return (
     <Layout>
       <Head>
@@ -40,7 +45,15 @@ export default function Delete() {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
-            const res = await deleteHandler(values);
+            const data = new URLSearchParams(values);
+            const res = await axios
+              .post("/api/delete", data)
+              .then((response) => {
+                Router.push("/confirm");
+              })
+              .catch((error) => {
+                setError(error.message);
+              });
             setSubmitting(false);
           }}
         >
@@ -149,6 +162,7 @@ export default function Delete() {
                 {isSubmitting && <span> Submitting...</span>}
                 {!isSubmitting && <span>Delete</span>}
               </Button>
+              {error ? <Error error={error} /> : null}
               <p className="mt-4 mb-3 text-muted text-center">
                 &copy; Notify.is 2020
               </p>

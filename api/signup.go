@@ -90,10 +90,10 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			log.Println("Sendgrid Response:", resp.StatusCode)
+			log.Println("SendGrid Response:", resp.StatusCode)
 
 			fmt.Fprintln(w, "User inserted into DB")
-			fmt.Fprintln(w, "Sendgrid Response:", resp.StatusCode)
+			fmt.Fprintln(w, "SendGrid Response:", resp.StatusCode)
 		} else {
 			fmt.Fprintln(w, "Request body is empty. No records inserted.")
 		}
@@ -105,8 +105,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 var db *sql.DB
 
 func init() {
-
-	// Setenv here
 
 	// To initialize Sentry's handler, you need to initialize Sentry itself beforehand
 	if err := sentry.Init(sentry.ClientOptions{
@@ -149,6 +147,6 @@ func init() {
 //
 // 	http.HandleFunc("/api/signup", SignupForm)
 //
-// 	log.Printf("Listening on port ***REMOVED***")
-// 	log.Fatal(http.ListenAndServe(":***REMOVED***", nil))
+// 	log.Printf("Listening on port 8080")
+// 	log.Fatal(http.ListenAndServe(":8080", nil))
 // }

@@ -82,8 +82,7 @@ a:hover {
 /* Floating placeholder signup form */
 
 .form {
-  width: 100%;
-  max-width: 420px;
+  width: 360px;
 }
 
 @media (max-width: 768px) {

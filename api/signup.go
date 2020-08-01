@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"database/sql"
@@ -27,8 +27,6 @@ type SignupDetails struct {
 
 // SignupForm exposes an API endpoint to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
-
-	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	if r.URL.Path != "/api/signup" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
@@ -109,11 +107,6 @@ var db *sql.DB
 func init() {
 
 	// Setenv here
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
 
 	// To initialize Sentry's handler, you need to initialize Sentry itself beforehand
 	if err := sentry.Init(sentry.ClientOptions{
@@ -150,12 +143,12 @@ func init() {
 	}
 }
 
-func main() {
-
-	log.Print("Starting server...")
-
-	http.HandleFunc("/api/signup", SignupForm)
-
-	log.Printf("Listening on port ***REMOVED***")
-	log.Fatal(http.ListenAndServe(":***REMOVED***", nil))
-}
+// func main() {
+//
+// 	log.Print("Starting server...")
+//
+// 	http.HandleFunc("/api/signup", SignupForm)
+//
+// 	log.Printf("Listening on port ***REMOVED***")
+// 	log.Fatal(http.ListenAndServe(":***REMOVED***", nil))
+// }

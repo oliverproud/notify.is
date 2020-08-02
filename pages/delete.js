@@ -124,18 +124,19 @@ export default function Delete() {
                 <label htmlFor="email">Email address</label>
               </div>
 
-              <div className="form-group form-check pt-2 mb-1">
+              <div className="custom-control custom-checkbox pt-3 mb-1">
                 <Field
                   type="checkbox"
                   name="acceptTerms"
-                  className={`form-check-input ${
+                  id="acceptTerms"
+                  className={`custom-control-input ${
                     touched.acceptTerms && errors.acceptTerms
                       ? "is-invalid"
                       : null
                   }`}
                 />
-                <label htmlFor="acceptTerms" className="form-check-label">
-                  I confirm I want to delete my data
+                <label htmlFor="acceptTerms" className="custom-control-label">
+                  By checking this box you agree to our:
                 </label>
                 <ErrorMessage
                   component="div"

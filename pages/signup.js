@@ -42,7 +42,7 @@ const initialValues = {
 };
 
 export default function Signup() {
-  
+
   const [error, setError] = useState("");
 
   return (

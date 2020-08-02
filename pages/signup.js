@@ -223,17 +223,18 @@ export default function Signup() {
                 </small>
               </div>
 
-              <div className="form-group form-check pt-3 mb-1">
+              <div className="custom-control custom-checkbox pt-3 mb-1">
                 <Field
                   type="checkbox"
                   name="acceptTerms"
-                  className={`form-check-input ${
+                  id="acceptTerms"
+                  className={`custom-control-input ${
                     touched.acceptTerms && errors.acceptTerms
                       ? "is-invalid"
                       : null
                   }`}
                 />
-                <label htmlFor="acceptTerms" className="form-check-label">
+                <label htmlFor="acceptTerms" className="custom-control-label">
                   By checking this box you agree to our:
                 </label>
                 <ErrorMessage

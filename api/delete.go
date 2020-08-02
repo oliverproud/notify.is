@@ -115,7 +115,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 			log.Println("SendGrid Response:", resp.StatusCode)
 
-			fmt.Fprintln(w, "User inserted into DB")
+			fmt.Fprintln(w, "User details retrieved")
 			fmt.Fprintln(w, "SendGrid Response:", resp.StatusCode)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")

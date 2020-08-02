@@ -136,7 +136,7 @@ export default function Delete() {
                   }`}
                 />
                 <label htmlFor="acceptTerms" className="custom-control-label">
-                  By checking this box you agree to our:
+                  I confirm I want to delete my data
                 </label>
                 <ErrorMessage
                   component="div"

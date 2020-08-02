@@ -1,15 +1,14 @@
+import axios from "axios";
 import * as Yup from "yup";
 import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
+import { useState } from "react";
+import Error from "../components/error";
 import Layout from "../components/layout";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState } from "react";
-import Error from "../components/error";
-
-import axios from "axios";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -42,7 +41,6 @@ const initialValues = {
 };
 
 export default function Signup() {
-
   const [error, setError] = useState("");
 
   return (

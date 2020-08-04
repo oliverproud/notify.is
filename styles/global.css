@@ -91,6 +91,15 @@ a:hover {
   }
 }
 
+@media (max-width: 320px) {
+  .form {
+    width: 300px;
+  }
+  .a-contact {
+    font-size: 30px;
+  }
+}
+
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;

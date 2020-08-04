@@ -12,13 +12,16 @@ export default function Contact() {
 
       <div className="container-center">
         <IntroHeader>
-          <h1 className="display-4">Contact</h1>
-          <p>Send us an email:</p>
-          <h1>
-            <a className="a-contact" href="mailto:support@notify.is">
-              support@notify.is
-            </a>
-          </h1>
+
+          <div className="contact-us">
+            <h1 className="display-4">Contact</h1>
+            <p>Send us an email:</p>
+            <h1>
+              <a className="a-contact" href="mailto:support@notify.is">
+                support@notify.is
+              </a>
+            </h1>
+          </div>
 
           <style jsx>
             {`

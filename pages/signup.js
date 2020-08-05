@@ -12,11 +12,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
-    .max(15, "Must be 15 characters or less")
-    .required("Required"),
-  lastName: Yup.string()
-    .max(20, "Must be 20 characters or less")
-    .required("Required"),
+    .max(15, "Must be 15 characters or less"),
   email: Yup.string().email("Invalid email addresss`").required("Required"),
   username: Yup.string()
     .max(29, "Must be 29 characters or less")
@@ -33,7 +29,6 @@ const validationSchema = Yup.object({
 
 const initialValues = {
   firstName: "",
-  lastName: "",
   email: "",
   username: "",
   acceptTerms: false, // added for our checkbox
@@ -69,44 +64,23 @@ export default function Signup() {
           {({ touched, errors, isSubmitting }) => (
             <Form className="form">
               <h1 className="display-4 pb-3">Get notified</h1>
-              <div className="form-row">
-                <div className="form-label-group col">
-                  <Field
-                    type="text"
-                    name="firstName"
-                    id="firstName"
-                    placeholder="First name"
-                    className={`form-control ${
-                      touched.firstName && errors.firstName
-                        ? "is-invalid"
-                        : null
-                    }`}
-                  />
-                  <label htmlFor="firstname">First name</label>
-                  <ErrorMessage
-                    component="div"
-                    name="firstName"
-                    className="invalid-feedback"
-                  />
-                </div>
 
-                <div className="form-label-group col">
-                  <Field
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    placeholder="Last name"
-                    className={`form-control ${
-                      touched.lastName && errors.lastName ? "is-invalid" : null
-                    }`}
-                  />
-                  <label htmlFor="lastname">Last name</label>
-                  <ErrorMessage
-                    component="div"
-                    name="lastName"
-                    className="invalid-feedback"
-                  />
-                </div>
+              <div className="form-label-group">
+                <Field
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First name"
+                  className={`form-control ${
+                    touched.firstName && errors.firstName
+                      ? "is-invalid"
+                      : null
+                  }`}
+                />
+                <label htmlFor="firstname">First name</label>
+                <small id="nameHelp" className="form-text text-muted">
+                  Optional
+                </small>
               </div>
 
               <div className="form-label-group">

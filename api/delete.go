@@ -14,7 +14,6 @@ import (
 // DeletionDetails parses the form values
 type DeletionDetails struct {
 	firstName string
-	lastName  string
 	email     string
 }
 
@@ -60,7 +59,6 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 
 			details := DeletionDetails{
 				firstName: r.FormValue("firstName"),
-				lastName:  r.FormValue("lastName"),
 				email:     r.FormValue("email"),
 			}
 

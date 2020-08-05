@@ -19,7 +19,6 @@ import (
 // SignupDetails parses the form values
 type SignupDetails struct {
 	firstName string
-	lastName  string
 	email     string
 	username  string
 	service   string
@@ -52,7 +51,6 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 			details := SignupDetails{
 				firstName: r.FormValue("firstName"),
-				lastName:  r.FormValue("lastName"),
 				email:     r.FormValue("email"),
 				username:  r.FormValue("username"),
 				service:   r.FormValue("switchGroup"),
@@ -73,7 +71,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println("Inserting into DB")
-			err := database.InsertUser(db, details.firstName, details.lastName, details.email, details.username, instagram, twitter, github)
+			err := database.InsertUser(db, details.firstName, details.email, details.username, instagram, twitter, github)
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)

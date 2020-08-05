@@ -11,16 +11,16 @@ func DeleteUser(db *sql.DB, id string) (string, error) {
 	sqlStatement := `
 	DELETE FROM users
 	WHERE id = $1
-  RETURNING id, first_name, last_name, email;
+  RETURNING id, first_name, email;
   `
 	var retID []uint8
-	var retFirstName, retLastName, retEmail string
+	var retFirstName, retEmail string
 
-	err := db.QueryRow(sqlStatement, id).Scan(&retID, &retFirstName, &retLastName, &retEmail)
+	err := db.QueryRow(sqlStatement, id).Scan(&retID, &retFirstName, &retEmail)
 	if err != nil {
 		return "", err
 	}
 
-	result := fmt.Sprintf("Record removed:\nID: %s,\nName: %s %s,\nEmail: %s", string(retID), retFirstName, retLastName, retEmail)
+	result := fmt.Sprintf("Record removed:\nID: %s,\nName: %s,\nEmail: %s", string(retID), retFirstName, retEmail)
 	return result, nil
 }

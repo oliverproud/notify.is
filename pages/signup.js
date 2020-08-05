@@ -13,7 +13,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .max(15, "Must be 15 characters or less"),
-  email: Yup.string().email("Invalid email addresss`").required("Required"),
+  email: Yup.string().email("Invalid email address").required("Required"),
   username: Yup.string()
     .max(29, "Must be 29 characters or less")
     .matches(
@@ -233,7 +233,7 @@ export default function Signup() {
               <Button
                 className="btn-lg btn-primary btn-block mt-4"
                 variant="primary"
-                disabled={isSubmitting}
+                disabled={isSubmitting, error}
                 type="submit"
               >
                 {isSubmitting && (

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/getsentry/sentry-go"
 	"notify.is/database"
@@ -58,8 +59,8 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := DeletionDetails{
-				firstName: r.FormValue("firstName"),
-				email:     r.FormValue("email"),
+				firstName: strings.Title(strings.ToLower(r.FormValue("firstName"))),
+				email:     strings.ToLower(r.FormValue("email")),
 			}
 
 			var id []uint8

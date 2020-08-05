@@ -50,8 +50,8 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := SignupDetails{
-				firstName: r.FormValue("firstName"),
-				email:     r.FormValue("email"),
+				firstName: strings.Title(strings.ToLower(r.FormValue("firstName"))),
+				email:     strings.ToLower(r.FormValue("email")),
 				username:  r.FormValue("username"),
 				service:   r.FormValue("switchGroup"),
 			}

@@ -13,7 +13,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .max(15, "Must be 15 characters or less"),
-  email: Yup.string().email("Invalid email addresss`").required("Required"),
+  email: Yup.string().email("Invalid email address").required("Required"),
   acceptTerms: Yup.boolean()
     .required("Required")
     .oneOf([true], "You must confirm this action."),
@@ -120,7 +120,7 @@ export default function Delete() {
               <Button
                 className="btn-lg btn-primary btn-block mt-4"
                 variant="primary"
-                disabled={isSubmitting}
+                disabled={isSubmitting, error}
                 type="submit"
               >
                 {isSubmitting && (

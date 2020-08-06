@@ -10,15 +10,58 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
+var instagram = false;
+var twitter = false;
+var github = false;
+
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .max(15, "Must be 15 characters or less"),
   email: Yup.string().email("Invalid email address").required("Required"),
   username: Yup.string()
-    .max(29, "Must be 29 characters or less")
-    .matches(
-      /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/,
-      "Must contain only letters, numbers, periods, and underscores"
+    // .max(29, "Must be 29 characters or less")
+    // .matches(
+    //   /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/,
+    //   "Must contain only letters, numbers, periods, and underscores"
+    // )
+    .test(
+      'valid-instagram', "Instagram: may contain only alphanumeric characters, periods, and underscores", function (username){
+        var instagramRegex = new RegExp(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/);
+        var instagramRes = instagramRegex.test(username)
+        if (instagramRes) { // if res is true then the username is valid and the switch can be enabled
+          instagram = false;
+          return true // return true to tell Yup the field is valid
+        } else {
+          instagram = true;
+          return true // true removes error message
+        }
+      }
+    )
+    .test(
+      'valid-twitter', "Twitter: may only contain alphanumeric characters or underscores", function (username){
+        var twitterRegex = new RegExp(/^[A-Za-z0-9_]{1,15}$/);
+        var twitterRes = twitterRegex.test(username)
+        if (twitterRes) { // if res is true then the username is valid and the switch can be enabled
+          twitter = false;
+          return true // return true to tell Yup the field is valid
+        } else {
+          twitter = true;
+          return true // true removes error message
+        }
+      }
+    )
+    .test(
+      'valid-github', "GitHub: may only contain alphanumeric characters or single hyphens", function (username){
+        var githubRegex = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i);
+        var githubRes = githubRegex.test(username)
+        if (githubRes) { // if res is true then the username is valid and the switch can be enabled
+          github = false;
+          return true // return true to tell Yup the field is valid
+        } else {
+          github = true;
+          return true // true removes error message
+        }
+      }
     )
     .required("Required"),
   acceptTerms: Yup.boolean()
@@ -133,7 +176,8 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="instagram-switch"
-                    value="instagram"
+                    value={instagram ? '' : 'instagram'}
+                    disabled={instagram}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"
@@ -153,7 +197,8 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="twitter-switch"
-                    value="twitter"
+                    value={twitter ? '' : 'twitter'}
+                    disabled={twitter}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"
@@ -173,7 +218,8 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="github-switch"
-                    value="github"
+                    value={github ? '' : 'github'}
+                    disabled={github}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"

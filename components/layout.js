@@ -15,11 +15,7 @@ export default function Layout({ children }) {
         <meta name="author" content="Oliver Proud" />
         <meta
           name="description"
-          content="Notify.is - Get notified when a taken Instagram username becomes available."
-        />
-        <meta
-          name="keywords"
-          content="instagram username unavailable, get instagram username, instagram username taken, get taken instagram username, get unavailable instagram username, get unavailable username, get taken username, instagram username taken, taken username, username unavailable"
+          content="Join Notify.is today. Get notified when a taken Instagram, Twitter or GitHub username becomes available."
         />
         <meta
           name="viewport"

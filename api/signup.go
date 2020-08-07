@@ -65,7 +65,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 					instagram = true
 				} else if services[i] == "twitter" {
 					twitter = true
-				} else {
+				} else if services[i] == "github" {
 					github = true
 				}
 			}

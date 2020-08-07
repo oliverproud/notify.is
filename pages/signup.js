@@ -19,11 +19,6 @@ const validationSchema = Yup.object({
     .max(15, "Must be 15 characters or less"),
   email: Yup.string().email("Invalid email address").required("Required"),
   username: Yup.string()
-    // .max(29, "Must be 29 characters or less")
-    // .matches(
-    //   /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/,
-    //   "Must contain only letters, numbers, periods, and underscores"
-    // )
     .test(
       'valid-instagram', "Instagram: may contain only alphanumeric characters, periods, and underscores", function (username){
         var instagramRegex = new RegExp(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/);
@@ -92,6 +87,21 @@ export default function Signup() {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
+
+            // if the field was disabled then don't submit switch value
+            if (instagram) {
+              var i = values.switchGroup.indexOf("instagram");
+              values.switchGroup[i] = null
+            }
+            if (twitter) {
+              var i = values.switchGroup.indexOf("twitter");
+              values.switchGroup[i] = null
+            }
+            if (github) {
+              var i = values.switchGroup.indexOf("github");
+              values.switchGroup[i] = null
+            }
+
             const data = new URLSearchParams(values);
             const res = await axios
               .post("/api/signup", data)
@@ -176,7 +186,7 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="instagram-switch"
-                    value={instagram ? '' : 'instagram'}
+                    value={instagram ? "" : "instagram"}
                     disabled={instagram}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup
@@ -197,7 +207,7 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="twitter-switch"
-                    value={twitter ? '' : 'twitter'}
+                    value={twitter ? "": "twitter"}
                     disabled={twitter}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup
@@ -218,7 +228,7 @@ export default function Signup() {
                     type="checkbox"
                     name="switchGroup"
                     id="github-switch"
-                    value={github ? '' : 'github'}
+                    value={github ? "" : "github"}
                     disabled={github}
                     className={`custom-control-input ${
                       touched.switchGroup && errors.switchGroup

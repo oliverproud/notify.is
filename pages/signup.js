@@ -198,7 +198,7 @@ export default function Signup() {
                     className="custom-control-label"
                     htmlFor="instagram-switch"
                   >
-                    Instagram
+                    Instagram {instagram ? <small className="switch-error">Username incompatible with Instagram</small> : null}
                   </label>
                 </div>
 
@@ -219,7 +219,7 @@ export default function Signup() {
                     className="custom-control-label"
                     htmlFor="twitter-switch"
                   >
-                    Twitter
+                    Twitter {twitter ? <small className="switch-error">Username incompatible with Twitter</small> : null}
                   </label>
                 </div>
 
@@ -240,7 +240,7 @@ export default function Signup() {
                     className="custom-control-label"
                     htmlFor="github-switch"
                   >
-                    GitHub
+                    GitHub {github ? <small className="switch-error">Username incompatible with GitHub</small> : null}
                   </label>
                   <ErrorMessage
                     component="div"
@@ -324,6 +324,9 @@ export default function Signup() {
           }
           .terms:hover {
             text-decoration: none;
+          }
+          .switch-error {
+            color: #CB444A;
           }
         `}
       </style>

@@ -25,6 +25,19 @@ body {
   color: inherit!important;
 }
 
+.signup-btn-outline {
+  background-color: #FFF!important;
+  border-color: #333!important;
+  padding: 1rem 2rem!important;
+  color: #333!important;
+}
+
+.signup-btn-outline:hover {
+  background-color: #333!important;
+  border-color: #FFF!important;
+  color: #FFF!important;
+}
+
 ::selection {
   background: #00FFB0;
 }

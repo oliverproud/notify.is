@@ -24,7 +24,7 @@ type SignupDetails struct {
 	service   string
 }
 
-// SignupForm exposes an API endpoint to send POST requests to
+// SignupForm exposes a REST API to send POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path != "/api/signup" {
@@ -56,7 +56,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 				service:   r.FormValue("switchGroup"),
 			}
 
-			// switch group is receieved as a concatenated string
+			// The array of switch values are sent as concatenated string
 			services := strings.Split(details.service, ",")
 
 			// Update boolean value relevant to services selected

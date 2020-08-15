@@ -24,7 +24,6 @@ export default function About() {
           </p>
           <p className="p-about">Sound good? Get notified with just your: </p>
           <ul>
-            <li>Name</li>
             <li>Email address</li>
             <li>Unavailable username</li>
             <li>Service(s) to check with</li>

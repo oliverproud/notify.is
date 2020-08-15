@@ -18,7 +18,7 @@ type DeletionDetails struct {
 	email     string
 }
 
-// DeleteForm exposes an API endpoint to send POST requests to
+// DeleteForm exposes a REST API to send POST requests to
 func DeleteForm(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/api/delete" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
@@ -72,7 +72,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			// Base URL that will have encoded parameters appended to
+			// Base URL that encoded parameters will be appended
 			base, err := url.Parse("https://notify.is/api/delete")
 			if err != nil {
 				sentry.CaptureException(err)

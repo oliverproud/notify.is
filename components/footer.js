@@ -1,11 +1,17 @@
 import Link from "next/link";
+import {CodeIcon, HeartIcon} from "@primer/octicons-react";
 
 export default function Footer() {
+
+  // Get current year for footer
+  var d = new Date();
+  var currentYear = d.getFullYear()
+
   return (
     <footer className="footer">
       <ul className="list-inline footer-items">
         <li className="list-inline-item">
-          <span>&copy; Notify.is 2020</span>
+          <span>&copy; {currentYear} Notify.is</span>
         </li>
         <span className="footer-span">|</span>
         <li className="list-inline-item">
@@ -37,7 +43,7 @@ export default function Footer() {
         </li>
         <span className="footer-span">|</span>
         <li className="list-inline-item test">
-          <a href="https://oliverproud.com">Built by Oliver Proud</a>
+          <span><CodeIcon size={12} /> with <HeartIcon size={12} /></span> by <a href="https://oliverproud.com">Oliver Proud</a>
         </li>
       </ul>
 

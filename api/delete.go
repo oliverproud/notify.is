@@ -87,6 +87,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Loop through rows returned by DB query
 			for rows.Next() {
 				var user User
+				db.ScanRows(rows, &user)
 
 				// Convert DB IDs to strings, add as parameters to URL values
 				params.Add("id", user.ID)

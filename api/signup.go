@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,10 +9,10 @@ import (
 	"time"
 
 	"github.com/getsentry/sentry-go"
-	"notify.is/database"
 	"notify.is/sendgrid"
 	//Postgres driver
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 // SignupDetails parses the form values
@@ -22,6 +21,15 @@ type SignupDetails struct {
 	email     string
 	username  string
 	service   string
+}
+
+// User database struct
+type User struct {
+	gorm.Model
+	Instagram, Twitter, Github bool
+	FirstName, Email, Username string
+	ID                         string    `gorm:"default:uuid_generate_v4()"`
+	Timestamp                  time.Time `gorm:"default:timezone('utc'::text, now())"`
 }
 
 // SignupForm exposes a REST API to send POST requests to
@@ -71,11 +79,14 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Println("Inserting into DB")
-			err := database.InsertUser(db, details.firstName, details.email, details.username, instagram, twitter, github)
-			if err != nil {
-				sentry.CaptureException(err)
-				log.Println(err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+			// Create user
+			user := User{FirstName: details.firstName, Username: details.username, Email: details.email, Instagram: instagram, Twitter: twitter, Github: github}
+			result := db.Create(&user)
+
+			if result.Error != nil {
+				sentry.CaptureException(result.Error)
+				log.Println(result.Error)
+				http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 				return
 			}
 			log.Println("User inserted into DB")
@@ -100,7 +111,7 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-var db *sql.DB
+var db *gorm.DB
 
 func init() {
 
@@ -116,27 +127,24 @@ func init() {
 
 	const (
 		port   = 5432
-		user   = "postgres"
+		dbUser = "postgres"
 		dbName = "notify"
 	)
 
 	var host = os.Getenv("DB_HOST")
 	var password = os.Getenv("DB_PASSWORD")
 
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, user, password, dbName)
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require", host, port, dbUser, password, dbName)
 
 	// Open database connection
 	var err error
-	db, err = sql.Open("postgres", psqlInfo)
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		sentry.CaptureException(err)
-		fmt.Printf("%v\n", err)
-		return
+		panic("failed to connect database")
 	}
-	if err = db.Ping(); err != nil {
-		sentry.CaptureException(err)
-		log.Fatal(err)
-	}
+
+	//Migrate the schema
+	db.AutoMigrate(&User{})
 }
 
 // func main() {

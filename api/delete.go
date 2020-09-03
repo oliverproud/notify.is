@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/getsentry/sentry-go"
-	"notify.is/database"
 	"notify.is/sendgrid"
 )
 
@@ -36,11 +35,13 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/deleted", http.StatusSeeOther)
 
 		for _, v := range keys {
-			result, err := database.DeleteUser(db, v)
-			if err != nil {
-				sentry.CaptureException(err)
-				log.Println(err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+			var user User
+			user.ID = v
+			result := db.Delete(&user)
+			if result.Error != nil {
+				sentry.CaptureException(result.Error)
+				log.Println(result.Error)
+				http.Error(w, result.Error.Error(), http.StatusInternalServerError)
 				return
 			}
 			log.Println(result)
@@ -63,8 +64,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 				email:     strings.ToLower(r.FormValue("email")),
 			}
 
-			var id []uint8
-			rows, err := database.GetUsers(db, details.email)
+			rows, err := db.Model(&User{}).Where("email = ?", details.email).Rows()
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
@@ -83,17 +83,22 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Query params
 			params := url.Values{}
 
+			defer rows.Close()
 			// Loop through rows returned by DB query
 			for rows.Next() {
-				if err := rows.Scan(&id); err != nil {
-					sentry.CaptureException(err)
-					log.Println(err)
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-					return
-				}
+				var user User
+				db.ScanRows(rows, &user)
 
 				// Convert DB IDs to strings, add as parameters to URL values
-				params.Add("id", string(id))
+				params.Add("id", user.ID)
+			}
+
+			// Get any error encountered during iteration
+			if err = rows.Err(); err != nil {
+				sentry.CaptureException(err)
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 
 			if len(params) == 0 {

@@ -37,7 +37,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 		for _, v := range keys {
 			var user User
 			user.ID = v
-			result := db.Delete(&user)
+			result := db.Unscoped().Delete(&user)
 			if result.Error != nil {
 				sentry.CaptureException(result.Error)
 				log.Println(result.Error)

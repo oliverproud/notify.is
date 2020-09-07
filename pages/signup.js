@@ -8,6 +8,7 @@ import Error from "../components/error";
 import Layout from "../components/layout";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+import { CurrentYear } from "../components/currentYear.js";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 var instagram = false;
@@ -306,7 +307,7 @@ export default function Signup() {
               </Button>
               {error ? <Error error={error} /> : null}
               <p className="mt-4 mb-3 text-muted text-center">
-                &copy; Notify.is 2020
+                &copy; {CurrentYear()} Notify.is
               </p>
             </Form>
           )}

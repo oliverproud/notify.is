@@ -1,17 +1,14 @@
 import Link from "next/link";
-import {CodeIcon, HeartIcon} from "@primer/octicons-react";
+import { CodeIcon, HeartIcon } from "@primer/octicons-react";
+import { CurrentYear } from "./currentYear.js"
 
 export default function Footer() {
-
-  // Get current year for footer
-  var d = new Date();
-  var currentYear = d.getFullYear()
 
   return (
     <footer className="footer">
       <ul className="list-inline footer-items">
         <li className="list-inline-item">
-          <span>&copy; {currentYear} Notify.is</span>
+          <span>&copy; {CurrentYear()} Notify.is</span>
         </li>
         <span className="footer-span">|</span>
         <li className="list-inline-item">

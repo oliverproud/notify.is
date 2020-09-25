@@ -42,16 +42,6 @@ export default function About() {
                 font-weight: normal;
                 margin-top: 20px;
               }
-              .about-btn {
-                border-color: #333;
-                color: inherit;
-                padding: 1rem 3rem !important;
-              }
-              .about-btn:hover {
-                background-color: #333;
-                border-color: #333;
-                color: #fff;
-              }
             `}
           </style>
         </IntroHeader>

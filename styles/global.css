@@ -13,16 +13,67 @@ body {
 }
 
 .signup-btn {
-  background-color: #333!important;
+  /* Old rounded style */
+
+  /* background-color: #333!important;
   border-color: #333!important;
   padding: 1rem 2rem!important;
-  color: #FFF!important;
+  color: #FFF!important; */
+
+  border-radius: 0;
+  color: #333;
+  background-color: white;
+  cursor: pointer;
+  border: solid 2px;
+  box-shadow: 8px 8px 0 #06d6a0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  padding: 16px 32px;
+  position: relative;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.signup-btn:active {
+  background-color: #000!important;
 }
 
 .signup-btn:hover {
-  background-color: #FFF!important;
+  /* Old rounded style */
+
+  /* background-color: #FFF!important;
+  border-color: #333!important;
+  color: inherit!important; */
+
+  background-color: #000!important;
+  border-color: #000!important;
+  color: #FFF!important;
+}
+
+.nav-btn {
+  border-radius: 0!important;
   border-color: #333!important;
   color: inherit!important;
+}
+
+.nav-btn:hover {
+  background-color: #000!important;
+  border-color: #000!important;
+  color: #fff!important;
+}
+
+.about-btn {
+  border-radius: 0;
+  border-color: #333;
+  color: inherit;
+  padding: 1rem 3rem !important;
+}
+.about-btn:hover {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
 }
 
 .signup-btn-outline {

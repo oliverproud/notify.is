@@ -39,20 +39,6 @@ export default function Navigation() {
         </Link>
       </Navbar.Collapse>
 
-      <style jsx>
-        {`
-          .nav-btn {
-            border-color: #333;
-            color: inherit;
-          }
-
-          .nav-btn:hover {
-            background-color: #333;
-            border-color: #333;
-            color: #fff;
-          }
-        `}
-      </style>
       <style jsx global>
         {`
           .custom-nav-icon.navbar-toggler {

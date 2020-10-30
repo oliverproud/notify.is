@@ -13,8 +13,7 @@ import (
 
 // DeletionDetails parses the form values
 type DeletionDetails struct {
-	firstName string
-	email     string
+	email string
 }
 
 // DeleteForm exposes a REST API to send POST requests to
@@ -60,8 +59,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 
 			details := DeletionDetails{
-				firstName: strings.Title(strings.ToLower(r.FormValue("firstName"))),
-				email:     strings.ToLower(r.FormValue("email")),
+				email: strings.ToLower(r.FormValue("email")),
 			}
 
 			rows, err := db.Model(&User{}).Where("email = ?", details.email).Rows()
@@ -110,7 +108,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			base.RawQuery = params.Encode()
 
 			// Sends deletion confirmation email
-			resp, err := sendgrid.DeleteEmail(details.email, details.firstName, base.String())
+			resp, err := sendgrid.DeleteEmail(details.email, base.String())
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)

@@ -12,8 +12,7 @@ import { CurrentYear } from "../components/currentYear.js";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string()
-    .max(15, "Must be 15 characters or less"),
+
   email: Yup.string().email("Invalid email address").required("Required"),
   acceptTerms: Yup.boolean()
     .required("Required")
@@ -21,7 +20,7 @@ const validationSchema = Yup.object({
 });
 
 const initialValues = {
-  firstName: "",
+
   email: "",
   acceptTerms: false, // added for our checkbox
 };
@@ -59,25 +58,8 @@ export default function Delete() {
                 Note: we will be unable to provide our services if you delete
                 your information.
               </small>
-              <div className="form-label-group mt-4">
-                <Field
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  placeholder="First name"
-                  className={`form-control ${
-                    touched.firstName && errors.firstName
-                      ? "is-invalid"
-                      : null
-                  }`}
-                />
-                <label htmlFor="firstname">First name</label>
-                <small id="nameHelp" className="form-text text-muted">
-                  Optional
-                </small>
-              </div>
 
-              <div className="form-label-group">
+              <div className="form-label-group mt-4">
                 <Field
                   type="email"
                   name="email"

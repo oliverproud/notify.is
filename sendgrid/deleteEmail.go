@@ -10,7 +10,7 @@ import (
 )
 
 // DeleteEmail sends an information deletion email to a user
-func DeleteEmail(email, name, link string) (*rest.Response, error) {
+func DeleteEmail(email, link string) (*rest.Response, error) {
 	m := mail.NewV3Mail()
 
 	e := mail.NewEmail(fromName, fromAddress)
@@ -20,11 +20,10 @@ func DeleteEmail(email, name, link string) (*rest.Response, error) {
 
 	p := mail.NewPersonalization()
 	tos := []*mail.Email{
-		mail.NewEmail(name, email),
+		mail.NewEmail("", email),
 	}
 	p.AddTos(tos...)
 
-	p.SetDynamicTemplateData("first_name", name)
 	p.SetDynamicTemplateData("deletion_link", link)
 
 	m.AddPersonalizations(p)

@@ -16,6 +16,7 @@
     "next": "9.4.4",
     "react": "16.13.1",
     "react-bootstrap": "^1.0.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "16.13.1",
     "swr": "^0.2.3",
     "yup": "^0.29.1"

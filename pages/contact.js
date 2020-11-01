@@ -26,10 +26,11 @@ export default function Contact() {
           <style jsx>
             {`
               a {
-                text-decoration: underline;
+                border-bottom: 3px solid #333;
               }
               a:hover {
                 text-decoration: none;
+                border-bottom: none;
               }
             `}
           </style>

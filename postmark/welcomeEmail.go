@@ -1,7 +1,6 @@
 package postmark
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/keighl/postmark"
@@ -13,7 +12,7 @@ func init() {
 	client = postmark.NewClient(os.Getenv("SERVER_TOKEN"), os.Getenv("ACCOUNT_TOKEN"))
 }
 
-func sendWelcomeEmail(email, name, username, instagram, twitter, github string) error {
+func SendWelcomeEmail(email, name, username string, instagram, twitter, github bool) (postmark.EmailResponse, error) {
 
 	var welcomeEmail = postmark.TemplatedEmail{
 
@@ -35,9 +34,8 @@ func sendWelcomeEmail(email, name, username, instagram, twitter, github string) 
 	}
 	res, err := client.SendTemplatedEmail(welcomeEmail)
 	if err != nil {
-		return err
+		return res, err
 	}
 
-	fmt.Println(res)
-	return nil
+	return res, nil
 }

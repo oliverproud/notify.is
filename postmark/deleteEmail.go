@@ -1,7 +1,6 @@
 package postmark
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/keighl/postmark"
@@ -11,7 +10,7 @@ func init() {
 	client = postmark.NewClient(os.Getenv("SERVER_TOKEN"), os.Getenv("ACCOUNT_TOKEN"))
 }
 
-func sendDeleteEmail(email, name, url string) error {
+func SendDeleteEmail(email, url string) (postmark.EmailResponse, error) {
 
 	var deleteEmail = postmark.TemplatedEmail{
 
@@ -22,7 +21,6 @@ func sendDeleteEmail(email, name, url string) error {
 		TemplateAlias: "success-email",
 		TemplateModel: map[string]interface{}{
 			"product_url":   "https://notify.is",
-			"name":          name,
 			"product_name":  "Notify.is",
 			"action_url":    url,
 			"support_email": "support@notify.is",
@@ -30,9 +28,8 @@ func sendDeleteEmail(email, name, url string) error {
 	}
 	res, err := client.SendTemplatedEmail(deleteEmail)
 	if err != nil {
-		return err
+		return res, err
 	}
 
-	fmt.Println(res)
-	return nil
+	return res, nil
 }

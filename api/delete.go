@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/getsentry/sentry-go"
-	"notify.is/sendgrid"
+	"notify.is/postmark"
 )
 
 // DeletionDetails parses the form values
@@ -108,17 +108,17 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			base.RawQuery = params.Encode()
 
 			// Sends deletion confirmation email
-			resp, err := sendgrid.DeleteEmail(details.email, base.String())
+			resp, err := postmark.SendDeleteEmail(details.email, base.String())
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			log.Println("SendGrid Response:", resp.StatusCode)
+			log.Printf("Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 
 			fmt.Fprintln(w, "User details retrieved")
-			fmt.Fprintln(w, "SendGrid Response:", resp.StatusCode)
+			fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 		} else {
 			fmt.Fprintf(w, "Request body is empty. No information submitted.")
 		}

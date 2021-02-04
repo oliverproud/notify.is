@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/getsentry/sentry-go"
-	"notify.is/sendgrid"
+	"notify.is/postmark"
 	//Postgres driver
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -92,17 +92,17 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			log.Println("User inserted into DB")
 
 			// Sends signup email
-			resp, err := sendgrid.SignupEmail(details.email, details.firstName, details.username)
+			resp, err := postmark.SendWelcomeEmail(details.email, details.firstName, details.username, instagram, twitter, github)
 			if err != nil {
 				sentry.CaptureException(err)
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
-			log.Println("SendGrid Response:", resp.StatusCode)
+			log.Printf("Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 
 			fmt.Fprintln(w, "User inserted into DB")
-			fmt.Fprintln(w, "SendGrid Response:", resp.StatusCode)
+			fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 		} else {
 			fmt.Fprintln(w, "Request body is empty. No records inserted.")
 		}

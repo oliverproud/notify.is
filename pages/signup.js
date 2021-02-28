@@ -63,7 +63,7 @@ const validationSchema = Yup.object({
   acceptTerms: Yup.boolean()
     .required("Required")
     .oneOf([true], "You must accept the terms and conditions."),
-  switchGroup: Yup.array().required("At least one option must be selected"),
+  switchGroup: Yup.array().min(1, "At least one option must be selected"),
 });
 
 const initialValues = {

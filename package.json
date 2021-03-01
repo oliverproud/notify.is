@@ -11,13 +11,14 @@
     "@primer/octicons-react": "^12.1.0",
     "@sentry/react": "^6.2.0",
     "axios": "^0.21.1",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^5.0.0-beta2",
     "formik": "^2.1.5",
     "next": "^10.0.7",
     "react": "^17.0.1",
     "react-bootstrap": "^1.0.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^17.0.1",
+    "react-hot-toast": "^1.0.2",
     "swr": "^0.4.2",
     "yup": "^0.32.9"
   }

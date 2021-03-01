@@ -6,7 +6,6 @@ import Router from "next/router";
 import { useState } from "react";
 import Error from "../components/error";
 import Layout from "../components/layout";
-import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { CurrentYear } from "../components/currentYear.js";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -53,13 +52,13 @@ export default function Delete() {
         >
           {({ touched, errors, isSubmitting }) => (
             <Form className="form">
-              <h1 className="display-4">Delete my info</h1>
+              <h1 className="h1">Delete my info</h1>
               <small className="text-muted">
                 Note: we will be unable to provide our services if you delete
                 your information.
               </small>
 
-              <div className="form-label-group mt-4">
+              <div className="form-floating mt-4">
                 <Field
                   type="email"
                   name="email"
@@ -80,18 +79,18 @@ export default function Delete() {
                 <label htmlFor="email">Email address</label>
               </div>
 
-              <div className="custom-control custom-checkbox pt-3 mb-1">
+              <div className="form-check pt-3 mb-1">
                 <Field
                   type="checkbox"
                   name="acceptTerms"
                   id="acceptTerms"
-                  className={`custom-control-input ${
+                  className={`form-check-input ${
                     touched.acceptTerms && errors.acceptTerms
                       ? "is-invalid"
                       : null
                   }`}
                 />
-                <label htmlFor="acceptTerms" className="custom-control-label">
+                <label htmlFor="acceptTerms" className="form-check-label">
                   I confirm I want to delete my data
                 </label>
                 <ErrorMessage
@@ -100,24 +99,25 @@ export default function Delete() {
                   className="invalid-feedback"
                 />
               </div>
-              <Button
-                className="btn-lg btn-primary btn-block mt-4"
-                variant="primary"
-                disabled={isSubmitting, error}
-                type="submit"
-              >
-                {isSubmitting && (
-                  <Spinner
-                    as="span"
-                    animation="grow"
-                    size="lg"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}
-                {isSubmitting && <span> Submitting...</span>}
-                {!isSubmitting && <span>Delete</span>}
-              </Button>
+              <div className="d-grid">
+                <button
+                  className="btn btn-primary btn-lg mt-4"
+                  type="submit"
+                  disabled={isSubmitting, error}
+                  >
+                  {isSubmitting && (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="lg"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {isSubmitting && <span> Submitting...</span>}
+                  {!isSubmitting && <span>Delete</span>}
+                </button>
+              </div>
               {error ? <Error error={error} /> : null}
               <p className="mt-4 mb-3 text-muted text-center">
                 &copy; {CurrentYear()} Notify.is
@@ -126,14 +126,6 @@ export default function Delete() {
           )}
         </Formik>
       </div>
-
-      <style jsx>
-        {`
-          .display-4 {
-            font-weight: 700;
-          }
-        `}
-      </style>
     </Layout>
   );
 }

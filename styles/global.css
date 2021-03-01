@@ -1,25 +1,8 @@
-html {
-  font-size: 14px;
-}
-
 body {
   color: #333;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-}
-
 .signup-btn {
-  /* Old rounded style */
-
-  /* background-color: #333!important;
-  border-color: #333!important;
-  padding: 1rem 2rem!important;
-  color: #FFF!important; */
-
   border-radius: 0;
   color: #333;
   background-color: white;
@@ -41,11 +24,6 @@ body {
 }
 
 .signup-btn:hover {
-  /* Old rounded style */
-
-  /* background-color: #FFF!important;
-  border-color: #333!important;
-  color: inherit!important; */
 
   background-color: #000!important;
   border-color: #000!important;
@@ -101,12 +79,8 @@ body {
   max-width: 700px;
 }
 
-.intro-header h1 {
+.h1 {
   font-weight: 700;
-}
-
-.intro-header p {
-  font-size: 24px;
 }
 
 .container-center {
@@ -137,13 +111,21 @@ ul.footer-items {
 
 a {
   color: inherit;
+  text-decoration: underline;
 }
 
 a:hover {
   color: inherit;
+  text-decoration: none;
 }
 
-/* Floating placeholder signup form */
+.nav-item {
+  text-decoration: underline;
+}
+
+.nav-item:hover {
+  text-decoration: none;
+}
 
 .form {
   width: 360px;
@@ -158,88 +140,5 @@ a:hover {
 @media (max-width: 320px) {
   .form {
     width: 300px;
-  }
-  .a-contact {
-    font-size: 30px;
-  }
-}
-
-.form-label-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.form-label-group > input,
-.form-label-group > label {
-  height: 3.125rem;
-  padding: .75rem;
-}
-
-.form-label-group > label {
-  position: absolute;
-  top: 0;
-  display: block;
-  width: 100%;
-  margin-bottom: 0; /* Override default `<label>` margin */
-  line-height: 1.5;
-  color: #495057;
-  pointer-events: none;
-  cursor: text; /* Match the input under the label */
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
-}
-
-.form-label-group input::-webkit-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::placeholder {
-  color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-  padding-top: 1.25rem;
-  padding-bottom: .25rem;
-}
-
-.form-label-group input:not(:placeholder-shown) ~ label {
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-  font-size: 12px;
-  color: #777;
-}
-
-/* Fallback for Edge
--------------------------------------------------- */
-@supports (-ms-ime-align: auto) {
-  .form-label-group > label {
-    display: none;
-  }
-  .form-label-group input::-ms-input-placeholder {
-    color: #777;
-  }
-}
-
-/* Fallback for IE
--------------------------------------------------- */
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .form-label-group > label {
-    display: none;
-  }
-  .form-label-group input:-ms-input-placeholder {
-    color: #777;
   }
 }

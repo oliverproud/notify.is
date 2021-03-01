@@ -11,9 +11,9 @@ export default function TOS() {
       </Head>
       <div className="container-center">
         <IntroHeader>
-          <h1 className="display-4">Notify.is Terms of Service</h1>
-          <h3 className="h3-tos">1. Terms</h3>
-          <p className="p-tos">
+          <h1 className="h1">Notify.is Terms of Service</h1>
+          <h3 className="h3">1. Terms</h3>
+          <p>
             By accessing the website at{" "}
             <Link href="/">
               <a>https://notify.is</a>
@@ -81,7 +81,7 @@ export default function TOS() {
             </li>
           </ol>
           <h3>4. Limitations</h3>
-          <p className="p-tos">
+          <p>
             In no event shall Notify.is or its suppliers be liable for any
             damages (including, without limitation, damages for loss of data or
             profit, or due to business interruption) arising out of the use or
@@ -93,7 +93,7 @@ export default function TOS() {
             these limitations may not apply to you.
           </p>
           <h3>5. Accuracy of materials</h3>
-          <p className="p-tos">
+          <p>
             The materials appearing on Notify.is website could include
             technical, typographical, or photographic errors. Notify.is does not
             warrant that any of the materials on its website are accurate,
@@ -102,38 +102,26 @@ export default function TOS() {
             Notify.is does not make any commitment to update the materials.
           </p>
           <h3>6. Links</h3>
-          <p className="p-tos">
+          <p>
             Notify.is has not reviewed all of the sites linked to its website
             and is not responsible for the contents of any such linked site. The
             inclusion of any link does not imply endorsement by Notify.is of the
             site. Use of any such linked website is at the user's own risk.
           </p>
           <h3>7. Modifications</h3>
-          <p className="p-tos">
+          <p>
             Notify.is may revise these terms of service for its website at any
             time without notice. By using this website you are agreeing to be
             bound by the then current version of these terms of service.
           </p>
           <h3>8. Governing Law</h3>
-          <p className="p-tos">
+          <p>
             These terms and conditions are governed by and construed in
             accordance with the laws of United Kingdom and you irrevocably
             submit to the exclusive jurisdiction of the courts in that State or
             location.
           </p>
-
-          <style jsx>
-            {`
-              .p-tos {
-                font-size: 18px;
-                font-weight: normal;
-                margin-top: 20px;
-              }
-              .h3-tos {
-                margin-top: 20px;
-              }
-            `}
-          </style>
+      
         </IntroHeader>
       </div>
     </Layout>

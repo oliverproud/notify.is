@@ -6,8 +6,8 @@ import Router from "next/router";
 import { useState } from "react";
 import Error from "../components/error";
 import Layout from "../components/layout";
-import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+import toast, { Toaster } from 'react-hot-toast';
 import { CurrentYear } from "../components/currentYear.js";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -117,9 +117,9 @@ export default function Signup() {
         >
           {({ touched, errors, isSubmitting }) => (
             <Form className="form">
-              <h1 className="display-4 pb-3">Get notified</h1>
+              <h1 className="h1 pb-3">Get notified</h1>
 
-              <div className="form-label-group">
+              <div className="form-floating mb-3">
                 <Field
                   type="text"
                   name="firstName"
@@ -137,7 +137,7 @@ export default function Signup() {
                 </small>
               </div>
 
-              <div className="form-label-group">
+              <div className="form-floating mb-3">
                 <Field
                   type="email"
                   name="email"
@@ -158,7 +158,7 @@ export default function Signup() {
                 <label htmlFor="email">Email address</label>
               </div>
 
-              <div className="form-label-group">
+              <div className="form-floating mb-3">
                 <Field
                   type="text"
                   name="username"
@@ -182,63 +182,63 @@ export default function Signup() {
               </div>
 
               <div>
-                <div className="custom-control custom-switch">
+                <div className="form-check form-switch">
                   <Field
                     type="checkbox"
                     name="switchGroup"
                     id="instagram-switch"
                     value={instagram ? "" : "instagram"}
                     disabled={instagram}
-                    className={`custom-control-input ${
+                    className={`form-check-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"
                         : null
                     }`}
                   />
                   <label
-                    className="custom-control-label"
+                    className="form-check-label"
                     htmlFor="instagram-switch"
                   >
                     Instagram {instagram ? <small className="switch-error">Username incompatible with Instagram</small> : null}
                   </label>
                 </div>
 
-                <div className="custom-control custom-switch">
+                <div className="form-check form-switch">
                   <Field
                     type="checkbox"
                     name="switchGroup"
                     id="twitter-switch"
                     value={twitter ? "": "twitter"}
                     disabled={twitter}
-                    className={`custom-control-input ${
+                    className={`form-check-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"
                         : null
                     }`}
                   />
                   <label
-                    className="custom-control-label"
+                    className="form-check-label"
                     htmlFor="twitter-switch"
                   >
                     Twitter {twitter ? <small className="switch-error">Username incompatible with Twitter</small> : null}
                   </label>
                 </div>
 
-                <div className="custom-control custom-switch">
+                <div className="form-check form-switch">
                   <Field
                     type="checkbox"
                     name="switchGroup"
                     id="github-switch"
                     value={github ? "" : "github"}
                     disabled={github}
-                    className={`custom-control-input ${
+                    className={`form-check-input ${
                       touched.switchGroup && errors.switchGroup
                         ? "is-invalid"
                         : null
                     }`}
                   />
                   <label
-                    className="custom-control-label"
+                    className="form-check-label"
                     htmlFor="github-switch"
                   >
                     GitHub {github ? <small className="switch-error">Username incompatible with GitHub</small> : null}
@@ -254,18 +254,18 @@ export default function Signup() {
                 </small>
               </div>
 
-              <div className="custom-control custom-checkbox pt-3 mb-1">
+              <div className="form-check pt-3 mb-1">
                 <Field
                   type="checkbox"
                   name="acceptTerms"
                   id="acceptTerms"
-                  className={`custom-control-input ${
+                  className={`form-check-input ${
                     touched.acceptTerms && errors.acceptTerms
                       ? "is-invalid"
                       : null
                   }`}
                 />
-                <label htmlFor="acceptTerms" className="custom-control-label">
+                <label htmlFor="acceptTerms" className="form-check-label">
                   By checking this box you agree to our:
                 </label>
                 <ErrorMessage
@@ -287,25 +287,26 @@ export default function Signup() {
                   </a>
                 </Link>
               </span>
-              <Button
-                className="btn-lg btn-primary btn-block mt-4"
-                variant="primary"
-                disabled={isSubmitting, error}
-                type="submit"
-              >
-                {isSubmitting && (
-                  <Spinner
-                    as="span"
-                    animation="grow"
-                    size="lg"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}
-                {isSubmitting && <span> Submitting...</span>}
-                {!isSubmitting && <span>Sign up</span>}
-              </Button>
-              {error ? <Error error={error} /> : null}
+              <div className="d-grid">
+                <button
+                  className="btn btn-primary btn-lg mt-4"
+                  type="submit"
+                  disabled={isSubmitting, error}
+                  >
+                  {isSubmitting && (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="lg"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {isSubmitting && <span> Submitting...</span>}
+                  {!isSubmitting && <span>Sign up</span>}
+                </button>
+              </div>
+                {error ? <Error error={error} /> : null}
               <p className="mt-4 mb-3 text-muted text-center">
                 &copy; {CurrentYear()} Notify.is
               </p>
@@ -316,7 +317,7 @@ export default function Signup() {
 
       <style jsx>
         {`
-          .display-4 {
+          .h1 {
             font-weight: 700;
           }
 

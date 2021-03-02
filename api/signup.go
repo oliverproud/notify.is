@@ -125,12 +125,9 @@ func init() {
 	// Flush buffered events before the program terminates.
 	defer sentry.Flush(2 * time.Second)
 
-	const (
-		port   = 5432
-		dbUser = "postgres"
-		dbName = "notify"
-	)
-
+	var port = 5432
+	var dbUser = os.Getenv("DB_USER")
+	var dbName = os.Getenv("DB_NAME")
 	var host = os.Getenv("DB_HOST")
 	var password = os.Getenv("DB_PASSWORD")
 

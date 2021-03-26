@@ -302,7 +302,7 @@ export default function Signup() {
                       aria-hidden="true"
                     />
                   )}
-                  {isSubmitting && <span> Submitting...</span>}
+                  
                   {!isSubmitting && <span>Sign up</span>}
                 </button>
               </div>

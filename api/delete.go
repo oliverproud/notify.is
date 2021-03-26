@@ -24,7 +24,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	switch r.Method {
-	case "GET":
+	case http.MethodGet:
 
 		// Get parameters from URL
 		keys, ok := r.URL.Query()["id"]
@@ -46,7 +46,7 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			log.Println(result)
 		}
 
-	case "POST":
+	case http.MethodPost:
 
 		if r.Body != http.NoBody {
 
@@ -81,11 +81,14 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			// Query params
 			params := url.Values{}
 
-			defer rows.Close()
 			// Loop through rows returned by DB query
 			for rows.Next() {
 				var user User
-				db.ScanRows(rows, &user)
+				err := db.ScanRows(rows, &user)
+				if err != nil {
+					log.Println(err)
+					return
+				}
 
 				// Convert DB IDs to strings, add as parameters to URL values
 				params.Add("id", user.ID)
@@ -117,13 +120,22 @@ func DeleteForm(w http.ResponseWriter, r *http.Request) {
 			}
 			log.Printf("Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 
-			fmt.Fprintln(w, "User details retrieved")
-			fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
+			_, err = fmt.Fprintln(w, "User details retrieved")
+			if err != nil {
+				return
+			}
+			_, err = fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
+			if err != nil {
+				return
+			}
 		} else {
-			fmt.Fprintf(w, "Request body is empty. No information submitted.")
+			_, err := fmt.Fprintf(w, "Request body is empty. No information submitted.")
+			if err != nil {
+				return
+			}
 		}
 	default:
-		fmt.Fprintf(w, "Only GET and POST methods are supported.")
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 

@@ -32,7 +32,7 @@ type User struct {
 	Timestamp                  time.Time `gorm:"default:timezone('utc'::text, now())"`
 }
 
-// SignupForm exposes a REST API to send POST requests to
+// SignupForm exposes a REST API to send  POST requests to
 func SignupForm(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path != "/api/signup" {
@@ -43,17 +43,20 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 	var instagram, twitter, github bool
 
 	switch r.Method {
-	case "GET":
+	case http.MethodGet:
 		http.Redirect(w, r, "/signup", http.StatusSeeOther)
-	case "POST":
+	case http.MethodPost:
 
 		if r.Body != http.NoBody {
 
 			// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 			if err := r.ParseForm(); err != nil {
 				sentry.CaptureException(err)
-				fmt.Fprintln(w, "ParseForm() err:", err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				_, err := fmt.Fprintln(w, "ParseForm() err:", err)
+				if err != nil {
+					return 
+				}
 				return
 			}
 
@@ -101,13 +104,22 @@ func SignupForm(w http.ResponseWriter, r *http.Request) {
 			}
 			log.Printf("Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
 
-			fmt.Fprintln(w, "User inserted into DB")
-			fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
+			_, err = fmt.Fprintln(w, "User inserted into DB")
+			if err != nil {
+				return 
+			}
+			_, err = fmt.Fprintf(w, "Postmark response: %v %s\n", resp.ErrorCode, resp.Message)
+			if err != nil {
+				return 
+			}
 		} else {
-			fmt.Fprintln(w, "Request body is empty. No records inserted.")
+			_, err := fmt.Fprintln(w, "Request body is empty. No records inserted.")
+			if err != nil {
+				return 
+			}
 		}
 	default:
-		fmt.Fprintln(w, "Only GET and POST methods are supported.")
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
@@ -141,7 +153,11 @@ func init() {
 	}
 
 	//Migrate the schema
-	db.AutoMigrate(&User{})
+	err = db.AutoMigrate(&User{})
+	if err != nil {
+		fmt.Println(err.Error())
+		return 
+	}
 }
 
 // func main() {

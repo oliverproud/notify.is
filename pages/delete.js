@@ -113,8 +113,7 @@ export default function Delete() {
                       role="status"
                       aria-hidden="true"
                     />
-                  )}
-                  {isSubmitting && <span> Submitting...</span>}
+                  )}                  
                   {!isSubmitting && <span>Delete</span>}
                 </button>
               </div>
